@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title><?=$title?></title>
+  <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+
+  <template id="loginFormTemplate">
+    <h2>login</h2>
+    <form id="loginForm" method="POST">
+      
+      <label for="username">användarnamn</label>
+      <input type="text" name="username" id="username">
+      
+      <label for="password">lösenord</label>
+      <input type="text" name="password" id="password">
+
+      <button type="submit">Login</button>
+    </form>
+  </template>
+
+  <template id="registerFormTemplate">
+    <h2>registering</h2>
+    <p>template för registeringsformulär</p>
+  </template>
+
+  <div class="container">
+    <header>
+      <h1><?=$title?></h1>
+    </header>
+
+    <main></main>
+    
+  </div>
+
+  <script type="text/javascript" src="main.js"></script>
+</body>
+</html>
