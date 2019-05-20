@@ -23,5 +23,8 @@
   $user = require __DIR__ . '/../src/routes/user.php';
   $user($app);
 
+  $entry = require __DIR__ . '/../src/routes/entryRoutes.php';
+  $entry($app);
+  
   // Run app
   $app->run();
