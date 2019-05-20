@@ -23,5 +23,8 @@
   $user = require __DIR__ . '/../src/routes/user.php';
   $user($app);
 
+  $comments = require __DIR__ . '/../src/routes/comments.php';
+  $comments($app);
+
   // Run app
   $app->run();
