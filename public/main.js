@@ -24,14 +24,16 @@ const views = {
       target.append(div)
     });
   }
-    renderView(views.register)
+  renderView(views.register)
   
+  // REGGA ANVÄNDARE
   const registerForm = document.querySelector('#RegisterForm')
   registerForm.addEventListener('submit', e => {
     e.preventDefault();
   
     const formData = new FormData(registerForm)
-    fetch('/api/register', {
+
+    fetch('/api/user', {
 
       method: 'POST',
       body: formData
@@ -41,17 +43,9 @@ const views = {
       if(!response.ok){
         return Error(response.statusText)
       } else {
-        return response.json()
-        renderView(view.loggedIn) // OBS GÖR SJÄLV
-      }
+        return response.json()}
     }).catch(error => {
-      console.error(error)
-    })
+      console.error(error)})
   })
   
   
-  fetch ('/api/users')
-    .then(response => response.json())
-    .then(data => {
-      console.log(data);
-    });
