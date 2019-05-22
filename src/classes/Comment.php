@@ -22,4 +22,14 @@ class Comment extends Mapper {
             ':createdAt' => $createdAt
         ]);
     }
+
+    public function update() {
+        $statement = $this->db>prepare();
+        $statement->exexute();
+    }
+
+    public function delete() {
+        $statement = $this->db>prepare();
+        $statement->exexute();
+    }
 }

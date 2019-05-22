@@ -21,4 +21,16 @@ return function ($app) {
     
     return $response->withJson($data);
   });
+
+  $app->put('/api/comment/{id}', function($request, $response) {
+    $comment = new Comment($this->db);
+
+    return $response->withJson($comment->update());
+  });
+
+  $app->delete('/api/comment/{id}', function($request, $response) {
+    $comment = new Comment($this->db);
+
+    return $response->withJson($comment->delete());
+  });
 };
