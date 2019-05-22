@@ -10,10 +10,20 @@
 <body>
   <main>
     <h1><?=$title?></h1>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas semper elementum ligula non tempor. Donec vel risus eleifend, porttitor sem placerat, elementum odio. Donec pulvinar dui in placerat sagittis. In hac habitasse platea dictumst. Vivamus in imperdiet ex, et lobortis quam. Nullam ut ligula dictum, accumsan tortor id, accumsan odio. Nullam interdum eros odio, iaculis accumsan mi sagittis quis. Praesent tempus rhoncus ipsum ac porta. Quisque sodales quis augue at bibendum.</p>
+    <p>A journal for knifing people</p>
+
+  <template id="loginFormTemplate">
+  <h2>Login</h2>  
+  <p>Detta är en template som visar ett loginformulär</p> 
+  <form action="" method="POST" id="loginForm">
+  <input type="text" name="username" id="username" placeholder="username">
+  <input type="password" name="password" id="password" placeholder="password">
+  <button type="submit">Logga in</button>
+  </form>
+  </template>
   
     <template id="registerFormTemplate">
-    <h2>Login</h2>
+    <h2>Register</h2>
     <form id="RegisterForm">
     <label for="username">Användare:</label>
       <input type="text" name="username" id="username">
@@ -24,6 +34,7 @@
   </template>
   
   </main>
+
   <script type="text/javascript" src="main.js"></script>
 </body>
 </html>
