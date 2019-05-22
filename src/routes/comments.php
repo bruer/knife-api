@@ -27,9 +27,14 @@ return function ($app) {
   });
 
   // Uppdatera en kommentar
-  $app->put('/api/comment/{id}', function($request, $response) {
+  $app->put('/api/comment/{id}', function($request, $response, $args) {
     $comment = new Comment($this->db);
+    $commentID = $args['id'];
+    $data = $request->getParsedBody();
 
+    $comment->update($commentID, $data['content']);
+
+    return $response->withJson($data);
   });
 
   // Ta bort en kommentar

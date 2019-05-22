@@ -3,7 +3,9 @@
 class Comment extends Mapper {
     
     public function getAll() {
-    $statement = $this->db->prepare("SELECT * FROM comments");
+    $statement = $this->db->prepare(
+        "SELECT * FROM comments"
+    );
     $statement->execute();
     
     return $statement->fetchAll(PDO::FETCH_ASSOC);
@@ -23,13 +25,25 @@ class Comment extends Mapper {
         ]);
     }
 
-    public function update() {
-        $statement = $this->db->prepare();
-        $statement->execute();
+    public function update($commentID, $content) {
+        $statement = $this->db->prepare(
+            "UPDATE comments 
+            SET content = :content
+            WHERE commentID = :commentID"
+        );
+        $statement->execute([
+            ':commentID' => $commentID,
+            ':content' => $content
+        ]);
     }
 
     public function delete($commentID) {
-        $statement = $this->db->prepare("DELETE FROM comments WHERE commentID = {$commentID}");
-        $statement->execute();
+        $statement = $this->db->prepare(
+            "DELETE FROM comments 
+            WHERE commentID = :commentID"
+        );
+        $statement->execute([
+            ':commentID' => $commentID
+        ]);
     }
 }
