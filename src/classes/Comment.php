@@ -24,12 +24,12 @@ class Comment extends Mapper {
     }
 
     public function update() {
-        $statement = $this->db>prepare();
-        $statement->exexute();
+        $statement = $this->db->prepare();
+        $statement->execute();
     }
 
-    public function delete() {
-        $statement = $this->db>prepare();
-        $statement->exexute();
+    public function delete($commentID) {
+        $statement = $this->db->prepare("DELETE FROM comments WHERE commentID = {$commentID}");
+        $statement->execute();
     }
 }
