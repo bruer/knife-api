@@ -2,7 +2,8 @@
 
 const views = {
     login: ['#loginFormTemplate'], 
-    register: ['#registerFormTemplate']
+    register: ['#registerFormTemplate'],
+    entries: ['#entriesTemplate']
   }
   
   function renderView(view) {
@@ -48,4 +49,39 @@ const views = {
       console.error(error)})
   })
   
-  
+  //Visa alla entries på startsidan
+  renderView(views.entries);
+
+  const showEntries = document.querySelector('#entryList');
+
+  fetch('/api/entries', {
+
+    method: 'GET'
+
+  }).then(response => {
+      
+    if(!response.ok){
+      console.log(response);
+      return Error(response.statusText)
+    } else {
+    
+     return response.json()
+    }
+  })
+  .then(entries => {
+    console.log(entries);
+    let markup = '';
+    entries.forEach(entry => {
+      markup += `<li> ${entry.title}<br/>
+      ${entry.content} <br/>
+      ${entry.createdAt} <br/>
+      </li>`;
+    })
+    
+    showEntries.innerHTML = markup;
+    console.log(markup);
+    
+  })
+  .catch(error => {
+    console.error(error)
+  });
