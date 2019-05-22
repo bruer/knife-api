@@ -12,6 +12,7 @@ return function ($app) {
     return $response->withJson($user->getUserByID($userID));
   })->add($auth);
 
+  // 
   $app->post('/api/user', function ($request, $response) {
      $user = new User($this->db);
      $data = $request->getParsedBody();
