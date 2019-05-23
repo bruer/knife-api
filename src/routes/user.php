@@ -21,4 +21,11 @@ return function ($app) {
      ));
      return $response->withJson($data);
   });
+
+  // Get all users
+  $app->get('/api/users', function($request, $response, $args){
+    $users = new User($this->db);
+    
+    return $response->withJson($users->getAllUsers());
+  });
 };
