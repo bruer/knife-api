@@ -1,7 +1,7 @@
   const views = {
-    login: ['#loginFormTemplate', '#registerFormTemplate'],
-    loggedin: ['#entriesTemplate', '#usersTemplate', '#commentsTemplate', '#newPostFormTemplate', '#logout']
-  
+    login: ['#loginFormTemplate', '#entriesTemplate', ],
+    registrer: ['#registerFormTemplate', '#entriesTemplate' ],
+    loggedin: ['#entriesTemplate', '#usersTemplate', '#commentsTemplate', '#newPostFormTemplate', '#logout'] 
   }
   
   function renderView(view) {
@@ -29,14 +29,36 @@
       if (template === '#commentsTemplate') { showAllComments(); }
 
       // 7. Bind Events
-      if (template === '#registerFormTemplate') { bindRegisterEvents(); }
-      if (template === '#loginFormTemplate') { bindLoginEvents(); }
+      if (template === '#registerFormTemplate') { bindRegisterEvents(); bindLoginFormEvents();  }
+      if (template === '#loginFormTemplate') { bindLoginEvents(); bindRegisterFormEvents(); }
       if (template === '#newPostFormTemplate') { bindNewPostEvents(); }
       if (template === '#logout') { bindLogoutEvents(); }
+    
     });
   }
 
 renderView(views.login)
+
+// visa regForm
+
+function bindRegisterFormEvents() {
+  const regBtn = document.querySelector('.registerBtn')
+
+  regBtn.addEventListener('click', e =>{
+    e.preventDefault()
+    renderView(views.registrer)
+})
+}
+
+// Visa logForm
+function bindLoginFormEvents() {
+  const loginBtn = document.querySelector('.loginBtn')
+
+  loginBtn.addEventListener('click', e =>{
+    e.preventDefault()
+    renderView(views.login)
+})
+}
 
 
 // REGGA ANVÄNDARE
@@ -278,3 +300,4 @@ function showAllComments() {
     console.error(error)
   });
 }
+
