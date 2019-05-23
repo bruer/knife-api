@@ -1,5 +1,6 @@
   const views = {
     login: ['#loginFormTemplate', '#registerFormTemplate', '#entriesTemplate', ], 
+
     loggedin: ['#entriesTemplate', '#usersTemplate', '#commentsTemplate']
   }
   
@@ -30,6 +31,7 @@
       // 7. Bind Events
       if (template === '#registerFormTemplate') { bindRegisterEvents(); }
       if (template === '#loginFormTemplate') { bindLoginEvents(); }
+      if (template === '#logOut') { bindLogoutEvents(); }
     });
   }
 
@@ -132,32 +134,61 @@ function showAllEntries() {
 //Visa alla användare på sidan
 
 function showAllUsers() {
-const showUsers = document.querySelector('#usersList');
+  const showUsers = document.querySelector('#usersList');
 
-fetch('/api/users', {
+  fetch('/api/users', {
 
-  method: 'GET'
+    method: 'GET'
 
-}).then(response => {
+  }).then(response => {
+
+    if(!response.ok){
+      console.log(response);
+      return Error(response.statusText)
+    } else {
     
-  if(!response.ok){
-    console.log(response);
-    return Error(response.statusText)
-  } else {
-  
-   return response.json()
-  }
-})
-.then(users => {
-  console.log(users);
-  let markup = '';
-  users.forEach(user => {
-    markup += `<li> ${user.username} </li>`;
+     return response.json()
+    }
   })
+  .then(users => {
+    console.log(users);
+    let markup = '';
+    users.forEach(user => {
+      markup += `<li> ${user.username} </li>`;
+    })
+
+    showUsers.innerHTML = markup;
+    console.log(markup);
+
+  })
+  .catch(error => {
+    console.error(error)
+  });
+}
+
+// LOGGA UT
+function bindLogoutEvents() {
+  const logoutBtn = document.querySelector('#logoutBtn')
+
+  console.log(logoutBtn);
   
-  showUsers.innerHTML = markup;
-  console.log(markup);
+  logoutBtn.addEventListener('click', e =>{
+    e.preventDefault();
   
+
+    fetch('/api/logout').then(() =>
+      renderView(views.login)
+    )
+    .catch(error => {
+      console.error(error)
+    });
+  
+  })
+}
+
+
+
+
 })
 .catch(error => {
   console.error(error)
@@ -194,3 +225,4 @@ function showAllComments() {
     console.error(error)
   });
 }
+
