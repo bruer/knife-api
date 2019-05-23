@@ -141,7 +141,6 @@ function showAllEntries() {
     }
   })
   .then(entries => {
-    console.log(entries);
     let markup = '';
     let idCollapse = 0;
     entries.forEach(entry => {
@@ -178,7 +177,6 @@ function showAllEntries() {
     })
     
     showEntries.innerHTML = markup;
-    console.log(markup);
     
   })
   .catch(error => {
