@@ -31,6 +31,9 @@
 
   $entry = require __DIR__ . '/../src/routes/entryRoutes.php';
   $entry($app);
+
+  $logout = require __DIR__ . '/../src/routes/logout.php';
+  $logout($app);
   
   // Run app
   $app->run();
