@@ -43,9 +43,11 @@ const views = {
       if(!response.ok){
         return Error(response.statusText)
       } else {
-        return response.json()}
+        return response.json()
+      }
     }).catch(error => {
-      console.error(error)})
+      console.error(error)
+    })
   })
   
   
