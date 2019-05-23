@@ -43,14 +43,15 @@ class Entry extends Mapper {
     public function newPost($title, $content) {
       $statement = $this->db->prepare(
         "INSERT INTO entries (title, content, createdAt, userID)
-        VALUES (:title, :content, :createdAt, :userID)"
+        VALUES (:title, :content, NOW(), :userID)"
       );
       $statement->execute([
         ':title' => $title,
         ':content'=> $content,
-        ':createdAt'=> date("Y-m-d H:i:s"),
         ':userID'=> 1
       ]);
+      $self = $_SERVER['PHP_SELF'];
+      header("Location: $self");
     }
 
   }
