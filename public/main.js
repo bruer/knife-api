@@ -221,15 +221,6 @@ function showAllComments() {
 
     method: 'GET'
 
-
-
-function showAllComments() {
-  const showComments = document.querySelector('#commentList');
-
-  fetch('/api/comments', {
-
-    method: 'GET'
-
   }).then(response => {
       
     if(!response.ok){
