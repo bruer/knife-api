@@ -14,11 +14,11 @@ return function ($app) {
 
   // 
   $app->post('/api/user', function ($request, $response) {
-     $user = new User($this->db);
-     $data = $request->getParsedBody();
-     $response->withJson($user->registerUser(
-       $data['username'], $data['password']
-     ));
-     return $response->withJson($data);
+      $user = new User($this->db);
+      $data = $request->getParsedBody();
+      $response->withJson($user->registerUser(
+        $data['username'], $data['password']
+      ));
+      return $response->withJson($data);
   });
 };
