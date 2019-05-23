@@ -1,6 +1,6 @@
   const views = {
     login: ['#loginFormTemplate', '#registerFormTemplate', '#entriesTemplate', ],
-    loggedin: ['#entriesTemplate', '#usersTemplate', '#commentsTemplate', '#newPostFormTemplate', 'logout']
+    loggedin: ['#entriesTemplate', '#usersTemplate', '#commentsTemplate', '#newPostFormTemplate', '#logout']
   
   }
   
@@ -32,7 +32,7 @@
       if (template === '#registerFormTemplate') { bindRegisterEvents(); }
       if (template === '#loginFormTemplate') { bindLoginEvents(); }
       if (template === '#newPostFormTemplate') { bindNewPostEvents(); }
-      if (template === '#logOut') { bindLogoutEvents(); }
+      if (template === '#logout') { bindLogoutEvents(); }
     });
   }
 
@@ -197,13 +197,10 @@ function showAllUsers() {
 // LOGGA UT
 function bindLogoutEvents() {
   const logoutBtn = document.querySelector('#logoutBtn')
-
-  console.log(logoutBtn);
   
   logoutBtn.addEventListener('click', e =>{
     e.preventDefault();
   
-
     fetch('/api/logout').then(() =>
       renderView(views.login)
     )
