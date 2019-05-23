@@ -39,6 +39,20 @@ class Entry extends Mapper {
       return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    // Posta ett nytt inlägg
+    public function newPost($title, $content) {
+      $statement = $this->db->prepare(
+        "INSERT INTO entries (title, content, createdAt, userID)
+        VALUES (:title, :content, :createdAt, :userID)"
+      );
+      $statement->execute([
+        ':title' => $title,
+        ':content'=> $content,
+        ':createdAt'=> date("Y-m-d H:i:s"),
+        ':userID'=> 1
+      ]);
+    }
+
   }
 
 ?>

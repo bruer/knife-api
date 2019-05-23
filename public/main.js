@@ -1,7 +1,7 @@
   const views = {
-    login: ['#loginFormTemplate', '#registerFormTemplate', '#entriesTemplate', ], 
-
-    loggedin: ['#entriesTemplate', '#usersTemplate', '#commentsTemplate', 'logout']
+    login: ['#loginFormTemplate', '#registerFormTemplate', '#entriesTemplate', ],
+    loggedin: ['#entriesTemplate', '#usersTemplate', '#commentsTemplate', '#newPostFormTemplate', 'logout']
+  
   }
   
   function renderView(view) {
@@ -31,6 +31,7 @@
       // 7. Bind Events
       if (template === '#registerFormTemplate') { bindRegisterEvents(); }
       if (template === '#loginFormTemplate') { bindLoginEvents(); }
+      if (template === '#newPostFormTemplate') { bindNewPostEvents(); }
       if (template === '#logOut') { bindLogoutEvents(); }
     });
   }
@@ -89,6 +90,33 @@ function bindLoginEvents() {
       renderView(views.loggedin);
     })
     .catch(error => {
+      console.error(error)
+    })
+  })
+}
+
+// Skriva nytt inlägg
+function bindNewPostEvents() {
+  const newPostForm = document.querySelector('#newPostForm')
+  newPostForm.addEventListener('submit', e => {
+    e.preventDefault();
+  
+    const formData = new FormData(newPostForm)
+
+    fetch('/api/newpost', {
+
+      method: 'POST',
+      body: formData
+
+    }).then(response => {
+        
+      if(!response.ok){
+        return Error(response.statusText)
+      } else {
+        return response.json()
+        
+      }
+    }).catch(error => {
       console.error(error)
     })
   })
@@ -175,6 +203,7 @@ function bindLogoutEvents() {
   logoutBtn.addEventListener('click', e =>{
     e.preventDefault();
   
+
     fetch('/api/logout').then(() =>
       renderView(views.login)
     )
@@ -184,6 +213,15 @@ function bindLogoutEvents() {
   
   })
 }
+
+function showAllComments() {
+  const showComments = document.querySelector('#commentList');
+
+  fetch('/api/comments', {
+
+    method: 'GET'
+
+
 
 function showAllComments() {
   const showComments = document.querySelector('#commentList');

@@ -35,6 +35,17 @@
         <button type="submit" id="registerBtn">Registrera</button>
       </form>
     </template>
+
+    <!-- Post new entries -->
+    <template id="newPostFormTemplate">
+    <h2>Skriv nytt inlägg</h2>
+      <form id="newPostForm">
+        <input type="text" name="title" id="newTitle" placeholder="Title"> <br>
+        <textarea name="content" id="newContent" placeholder="Write something here..">
+        </textarea> <br>
+        <button type="submit" id="newPostBtn">Post</button>
+      </form>
+    </template>
     
     <template id="entriesTemplate">
       <h2>Entries</h2>
@@ -48,12 +59,12 @@
       </ul>
     </template>
 
-<<<<<<< HEAD
+
     <template id="logOut">
         <button type="submit" id="logoutBtn">Logout</button>
     </template>
 
-=======
+
     <template id="commentsTemplate">
       <h2>Comments</h2>
       <ul id="commentList">
@@ -62,7 +73,6 @@
 
   </main>
 
->>>>>>> f954c94cdc2b3b34a29624fb2f330e4e4c3acf41
   <script type="text/javascript" src="main.js"></script>
   <script type="text/javascript" src="registerBtn.js"></script>
 </body>
