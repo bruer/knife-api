@@ -6,13 +6,16 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title><?=$title?></title>
   <link rel="stylesheet" type="text/css" href="style.css">
+  <link href="data:image/x-icon;base64,AAABAAEAEBAQAAAAAAAoAQAAFgAAACgAAAAQAAAAIAAAAAEABAAAAAAAgAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAa2djAAoKCgAPDw4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADAAAgAAAAAAMzMzEBAQEBAzMzMRERERETMzMxERERERMzMzERERERAwAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD//wAA//8AAP//AAD//wAA//8AAHv/AAABVQAAAAAAAAAAAAAAAQAAe/8AAP//AAD//wAA//8AAP//AAD//wAA" rel="icon" type="image/x-icon" />
 </head>
 <body>
   <main>
     <h1><?=$title?></h1>
     <p>A journal for knifing people</p>
+    <div id="renderTarget"></div>
+  </main>
 
-    <template id="loginFormTemplate">
+  <template id="loginFormTemplate">
       <h2>Login</h2>  
       <p>Detta är en template som visar ett loginformulär</p> 
       <form action="" method="POST" id="loginForm">
@@ -55,8 +58,6 @@
   </main>
 
   <script type="text/javascript" src="main.js"></script>
-  <script type="text/javascript" src="users.js"></script>
-  <script type="text/javascript" src="comments.js"></script>
   <script type="text/javascript" src="registerBtn.js"></script>
 </body>
 </html>
