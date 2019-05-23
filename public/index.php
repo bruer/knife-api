@@ -23,9 +23,6 @@
   $user = require __DIR__ . '/../src/routes/user.php';
   $user($app);
 
-  $post = require __DIR__ . '/../src/routes/post.php';
-  $post($app);
-
   $comments = require __DIR__ . '/../src/routes/comments.php';
   $comments($app);
 

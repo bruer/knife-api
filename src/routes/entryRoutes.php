@@ -21,37 +21,51 @@ return function ($app) {
     return $response->withJson($entries->getEntriesFrom($userID, $quantity));
   });
 
-      //Get request för att hämta specifikt inlägg
-      $app->get('/api/entry/{entryID}', function($request, $response, $args){
-        $entry = new Entry($this->db);
-        $entryID = $args['entryID'];
-        
-        return $response->withJson($entry->getEntryID($entryID));
-      });
+  // Register auth middleware
+  $auth = require __DIR__ . '/../middlewares/auth.php';
 
-      //delete request för att radera ett entry
-      $app->delete('/api/entry/{entryID}', function($request, $response, $args){
-        $entry = new Entry($this->db);
-        $entryID = $args['entryID'];
-        
-        if ($entry->removeEntry($entryID)) {
-         return $response->withJson(['success'=>TRUE]); 
-        } else {
-          return $response->withJson(['success'=>FALSE]);
-        };
-      });
+  // New Post
+  $app->post('/api/newpost', function ($request, $response) {
+    $entry = new Entry($this->db);
+    $data = $request->getParsedBody();
+    var_dump($data);
+    $response->withJson($entry->newPost(
+      $data['title'], $data['content']
+    ));
+    return $response->withJson($data);
+  });
 
-      //Put request för att ändra ett entry
-      $app->put('/api/entry/{entryID}/{content}', function($request, $response, $args){
-        $entry = new Entry($this->db);
-        $entryID = $args['entryID'];
-        $content = $args['content'];
-        
-        if ($entry->updateEntry($entryID, $content)) {
-          return $response->withJson(['success'=>TRUE]);
-        } else {
-          return $response->withJson(['success'=>FALSE]);
-        }
-      });
+  //Get request för att hämta specifikt inlägg
+  $app->get('/api/entry/{entryID}', function($request, $response, $args){
+    $entry = new Entry($this->db);
+    $entryID = $args['entryID'];
+    
+    return $response->withJson($entry->getEntryID($entryID));
+  });
+
+  //delete request för att radera ett entry
+  $app->delete('/api/entry/{entryID}', function($request, $response, $args){
+    $entry = new Entry($this->db);
+    $entryID = $args['entryID'];
+    
+    if ($entry->removeEntry($entryID)) {
+      return $response->withJson(['success'=>TRUE]); 
+    } else {
+      return $response->withJson(['success'=>FALSE]);
+    };
+  });
+
+  //Put request för att ändra ett entry
+  $app->put('/api/entry/{entryID}/{content}', function($request, $response, $args){
+    $entry = new Entry($this->db);
+    $entryID = $args['entryID'];
+    $content = $args['content'];
+    
+    if ($entry->updateEntry($entryID, $content)) {
+      return $response->withJson(['success'=>TRUE]);
+    } else {
+      return $response->withJson(['success'=>FALSE]);
     }
+  });
+}
 ?>
