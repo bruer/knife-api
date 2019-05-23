@@ -23,3 +23,4 @@ return function ($app) {
     return $response->withJson(['loggedIn' => true]);
   })->add($auth);
 };
+

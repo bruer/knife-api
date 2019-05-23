@@ -1,6 +1,7 @@
   const views = {
-    login: ['#loginFormTemplate', '#registerFormTemplate', '#entriesTemplate', ], 
-    loggedin: ['#entriesTemplate', '#usersTemplate']
+    login: ['#loginFormTemplate', '#registerFormTemplate', '#entriesTemplate', ],
+    loggedin: ['#entriesTemplate', '#usersTemplate', '#commentsTemplate', '#newPostFormTemplate', '#logout']
+  
   }
   
   function renderView(view) {
@@ -25,10 +26,13 @@
       // 6. Check for data loading dependencies
       if (template === '#entriesTemplate') { showAllEntries(); }
       if (template === '#usersTemplate') { showAllUsers(); }
+      if (template === '#commentsTemplate') { showAllComments(); }
 
       // 7. Bind Events
       if (template === '#registerFormTemplate') { bindRegisterEvents(); }
       if (template === '#loginFormTemplate') { bindLoginEvents(); }
+      if (template === '#newPostFormTemplate') { bindNewPostEvents(); }
+      if (template === '#logout') { bindLogoutEvents(); }
     });
   }
 
@@ -86,6 +90,33 @@ function bindLoginEvents() {
       renderView(views.loggedin);
     })
     .catch(error => {
+      console.error(error)
+    })
+  })
+}
+
+// Skriva nytt inlägg
+function bindNewPostEvents() {
+  const newPostForm = document.querySelector('#newPostForm')
+  newPostForm.addEventListener('submit', e => {
+    e.preventDefault();
+  
+    const formData = new FormData(newPostForm)
+
+    fetch('/api/newpost', {
+
+      method: 'POST',
+      body: formData
+
+    }).then(response => {
+        
+      if(!response.ok){
+        return Error(response.statusText)
+      } else {
+        return response.json()
+        
+      }
+    }).catch(error => {
       console.error(error)
     })
   })
@@ -158,35 +189,83 @@ function showAllEntries() {
 //Visa alla användare på sidan
 
 function showAllUsers() {
-const showUsers = document.querySelector('#usersList');
+  const showUsers = document.querySelector('#usersList');
 
-fetch('/api/users', {
+  fetch('/api/users', {
 
-  method: 'GET'
+    method: 'GET'
 
-}).then(response => {
+  }).then(response => {
+
+    if(!response.ok){
+      console.log(response);
+      return Error(response.statusText)
+    } else {
     
-  if(!response.ok){
-    console.log(response);
-    return Error(response.statusText)
-  } else {
-  
-   return response.json()
-  }
-})
-.then(users => {
-  console.log(users);
-  let markup = '';
-  users.forEach(user => {
-    markup += `<li> ${user.username} </li>`;
+     return response.json()
+    }
   })
-  
-  showUsers.innerHTML = markup;
-  console.log(markup);
-  
-})
-.catch(error => {
-  console.error(error)
-});
+  .then(users => {
+    console.log(users);
+    let markup = '';
+    users.forEach(user => {
+      markup += `<li> ${user.username} </li>`;
+    })
+
+    showUsers.innerHTML = markup;
+    console.log(markup);
+
+  })
+  .catch(error => {
+    console.error(error)
+  });
 }
 
+// LOGGA UT
+function bindLogoutEvents() {
+  const logoutBtn = document.querySelector('#logoutBtn')
+  
+  logoutBtn.addEventListener('click', e =>{
+    e.preventDefault();
+  
+    fetch('/api/logout').then(() =>
+      renderView(views.login)
+    )
+    .catch(error => {
+      console.error(error)
+    });
+  
+
+  })
+}
+
+function showAllComments() {
+  const showComments = document.querySelector('#commentList');
+
+  fetch('/api/comments', {
+
+    method: 'GET'
+
+  }).then(response => {
+      
+    if(!response.ok){
+      console.log(response);
+      return Error(response.statusText)
+    } else {
+    
+     return response.json()
+    }
+  })
+  .then(comments => {
+    let markup = '';
+    comments.forEach(comment => {
+      markup += `<li> ${comment.content} </li>`;
+    })
+    
+    showComments.innerHTML = markup;
+    
+  })
+  .catch(error => {
+    console.error(error)
+  });
+}
