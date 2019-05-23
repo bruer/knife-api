@@ -5,35 +5,99 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title><?=$title?></title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <link rel="stylesheet" type="text/css" href="style.css">
   <link href="data:image/x-icon;base64,AAABAAEAEBAQAAAAAAAoAQAAFgAAACgAAAAQAAAAIAAAAAEABAAAAAAAgAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAa2djAAoKCgAPDw4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADAAAgAAAAAAMzMzEBAQEBAzMzMRERERETMzMxERERERMzMzERERERAwAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD//wAA//8AAP//AAD//wAA//8AAHv/AAABVQAAAAAAAAAAAAAAAQAAe/8AAP//AAD//wAA//8AAP//AAD//wAA" rel="icon" type="image/x-icon" />
 </head>
 <body>
-  <main>
+  <div class="container">
     <h1><?=$title?></h1>
     <p>A journal for knifing people</p>
     <div id="renderTarget"></div>
-  </main>
+  </div>
 
   <template id="loginFormTemplate">
-      <h2>Login</h2>  
+<!--       <h2>Login</h2>  
       <p>Detta är en template som visar ett loginformulär</p> 
       <form action="" method="POST" id="loginForm">
       <input type="text" name="username" id="username" placeholder="username">
       <input type="password" name="password" id="password" placeholder="password">
       <button type="submit">Logga in</button>
-      </form>
+      </form> -->
+
+    <div class="d-flex justify-content-end ml-5 h-100 col-3" id="loginDiv">
+            <div class="card" id="card">
+                <div class="card-header">
+                    <div class="d-flex justify-content-center"> 
+                    <h2 id="card-head">Logga in</h2>
+                    </div>
+                </div><!--Card-header-->
+                <div class="card-body">
+                    <form method="POST" id="loginForm">
+                    <div class="form-group">
+                        <label for="username">Användarnamn</label>
+                        <input type="text" class="form-control" name="username" id="username" placeholder="username">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Lösenord</label>
+                        <input type="password" class="form-control" name="password" id="password" placeholder="password">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Logga in</button>
+                    </form>
+
+                </div>
+                <div class="card-footer">
+                    <div class="row">
+                        <div class="col">
+                            <button class="btn btn-sm btn-secondary loginBtn">Logga in</button>
+                        </div>
+                        <div class="col">
+                            <button class="btn btn-sm btn-secondary registerBtn">Registrera</button>
+                        </div>
+                    </div>
+                </div><!--Card-footer-->
+            </div><!--Card-->
+        </div>
     </template>
+
     
     <template id="registerFormTemplate">
-    <h2>Register</h2>
-      <form id="RegisterForm">
-      <label for="username">Användare:</label>
-        <input type="text" name="username" id="username">
-        <label for="password">Lösenord:</label>
-        <input type="password" name="password" id="password">
-        <button type="submit" id="registerBtn">Registrera</button>
-      </form>
+      <div class="d-flex justify-content-end ml-5 h-100 col-3" id="registerDiv">
+            <div class="card" id="card">
+                <div class="card-header">
+                    <div class="d-flex justify-content-center"> 
+                    <h2 id="card-head">Registrera dig</h2>
+                    </div>
+                </div><!--Card-header-->
+                <div class="card-body">
+
+                    <form id="RegisterForm">
+                    <div class="form-group">
+                        <label for="username">Välj användarnamn</label>
+                        <input type="text" class="form-control" name="username" id="username" placeholder="Användarnamn">
+                        
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Välj lösenord</label>
+                        <input type="password" class="form-control" name="password" id="password" required placeholder="Lösenord">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Registrera</button>
+                    </form>
+
+                </div>
+
+                <div class="card-footer">
+                    <div class="row">
+                        <div class="col">
+                            <button class="btn btn-sm btn-secondary loginBtn">Logga in</button>
+                        </div>
+                        <div class="col">
+                            <button class="btn btn-sm btn-secondary registerBtn">Registrera</button>
+                        </div>
+                    </div>
+                </div><!--Card-footer-->
+            </div><!--Card-->
+        </div>
     </template>
 
     <!-- Post new entries -->
@@ -49,8 +113,9 @@
     
     <template id="entriesTemplate">
       <h2>Entries</h2>
-      <ul id="entryList">
-      </ul>
+      <div id="entryList" class="col-3">
+      
+      </div>
     </template>
 
     <template id="usersTemplate">
@@ -60,20 +125,25 @@
     </template>
 
 
+
     <template id="logout">
         <button id="logoutBtn">Logout</button>
     </template>
-
-
+    
+    
     <template id="commentsTemplate">
-      <h2>Comments</h2>
-      <ul id="commentList">
-      </ul>
-    </template>
-
-  </main>
-
-  <script type="text/javascript" src="main.js"></script>
-  <script type="text/javascript" src="registerBtn.js"></script>
+        <h2>Comments</h2>
+        <ul id="commentList">
+            </ul>
+        </template>
+        
+    </main>
+    
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    
+    <script type="text/javascript" src="main.js"></script>
+    <script type="text/javascript" src="registerBtn.js"></script>
 </body>
 </html>
