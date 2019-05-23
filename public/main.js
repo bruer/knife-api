@@ -1,6 +1,7 @@
   const views = {
-    login: ['#loginFormTemplate', '#registerFormTemplate', '#entriesTemplate', ], 
-    loggedin: ['#entriesTemplate', '#usersTemplate', '#commentsTemplate', '#newPostFormTemplate']
+    login: ['#loginFormTemplate', '#registerFormTemplate', '#entriesTemplate', ],
+    loggedin: ['#entriesTemplate', '#usersTemplate', '#commentsTemplate', '#newPostFormTemplate', 'logout']
+  
   }
   
   function renderView(view) {
@@ -213,14 +214,14 @@ function bindLogoutEvents() {
   })
 }
 
+function showAllComments() {
+  const showComments = document.querySelector('#commentList');
+
+  fetch('/api/comments', {
+
+    method: 'GET'
 
 
-
-})
-.catch(error => {
-  console.error(error)
-});
-}
 
 function showAllComments() {
   const showComments = document.querySelector('#commentList');
@@ -252,4 +253,3 @@ function showAllComments() {
     console.error(error)
   });
 }
-
