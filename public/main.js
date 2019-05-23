@@ -1,5 +1,5 @@
   const views = {
-    login: ['#loginFormTemplate', '#registerFormTemplate', '#entriesTemplate', ], 
+    login: ['#loginFormTemplate', '#registerFormTemplate', '#commentsTemplate', ], 
     loggedin: ['#entriesTemplate', '#usersTemplate', '#commentsTemplate']
   }
   
@@ -111,7 +111,7 @@ function showAllEntries() {
     }
   })
   .then(entries => {
-    console.log(entries);
+    // console.log(entries);
     let markup = '';
     entries.forEach(entry => {
       markup += `<li> ${entry.title}<br/>
@@ -121,7 +121,7 @@ function showAllEntries() {
     })
     
     showEntries.innerHTML = markup;
-    console.log(markup);
+    // console.log(markup);
     
   })
   .catch(error => {
@@ -164,6 +164,8 @@ fetch('/api/users', {
 });
 }
 
+// VISA KOMMENTARER
+
 function showAllComments() {
   const showComments = document.querySelector('#commentList');
 
@@ -184,8 +186,12 @@ function showAllComments() {
   .then(comments => {
     let markup = '';
     comments.forEach(comment => {
-      markup += `<li> ${comment.content} </li>`;
-    })
+
+      markup += `
+      <p> ${comment.content} </p>
+      <a href='http://localhost:8000/' onclick='deleteComment(${comment.commentID})'>delete</a>
+      `;
+    });
     
     showComments.innerHTML = markup;
     
