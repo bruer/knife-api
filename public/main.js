@@ -135,8 +135,8 @@ function bindNewPostEvents() {
       if(!response.ok){
         return Error(response.statusText)
       } else {
+        newPostForm.reset()
         return response.json()
-        
       }
     }).catch(error => {
       console.error(error)
