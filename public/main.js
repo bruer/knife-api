@@ -57,8 +57,8 @@ function bindRegisterEvents() {
       if(!response.ok){
         return Error(response.statusText)
       } else {
-        return response.json()
-        
+        registerForm.reset();
+        return response.json()    
       }
     }).catch(error => {
       console.error(error)
