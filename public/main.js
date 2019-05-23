@@ -1,5 +1,5 @@
   const views = {
-    login: ['#loginFormTemplate', '#registerFormTemplate'],
+    login: ['#commentsTemplate', '#loginFormTemplate', '#registerFormTemplate'],
     loggedin: ['#entriesTemplate', '#usersTemplate', '#commentsTemplate', '#newPostFormTemplate', '#logout']
   
   }
@@ -206,14 +206,12 @@ function showAllUsers() {
     }
   })
   .then(users => {
-    console.log(users);
     let markup = '';
     users.forEach(user => {
       markup += `<li> ${user.username} </li>`;
     })
 
     showUsers.innerHTML = markup;
-    console.log(markup);
 
   })
   .catch(error => {
@@ -264,10 +262,14 @@ function showAllComments() {
 
       markup += `
       <p> ${comment.content} </p>
-      <a 
+      <a
       href='http://localhost:8000/' 
       onclick='deleteComment(${comment.commentID})'>
-      delete
+      <p>delete</p>
+      </a>
+      <a
+      onclick='updateComment(${comment.commentID})'>
+      <p>edit</p>
       </a>
       `;
     });
