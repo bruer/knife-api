@@ -6,6 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title><?=$title?></title>
   <link rel="stylesheet" type="text/css" href="style.css">
+  <link href="data:image/x-icon;base64,AAABAAEAEBAQAAAAAAAoAQAAFgAAACgAAAAQAAAAIAAAAAEABAAAAAAAgAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAa2djAAoKCgAPDw4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADAAAgAAAAAAMzMzEBAQEBAzMzMRERERETMzMxERERERMzMzERERERAwAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD//wAA//8AAP//AAD//wAA//8AAHv/AAABVQAAAAAAAAAAAAAAAQAAe/8AAP//AAD//wAA//8AAP//AAD//wAA" rel="icon" type="image/x-icon" />
 </head>
 <body>
   <main>
@@ -30,8 +31,8 @@
       <label for="username">Användare:</label>
         <input type="text" name="username" id="username">
         <label for="password">Lösenord:</label>
-        <input type="password" name="password" id="password" required>
-        <button type="submit">Registrera</button>
+        <input type="password" name="password" id="password">
+        <button type="submit" id="registerBtn">Registrera</button>
       </form>
     </template>
     
@@ -42,6 +43,16 @@
       </ul>
     </template>
 
+    <template id="usersTemplate">
+      <h2>Users</h2>
+      <ul id="usersList">
+      </ul>
+    </template>
+
+  </main>
+
   <script type="text/javascript" src="main.js"></script>
+  <script type="text/javascript" src="users.js"></script>
+  <script type="text/javascript" src="registerBtn.js"></script>
 </body>
 </html>
