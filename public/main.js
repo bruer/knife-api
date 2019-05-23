@@ -1,6 +1,7 @@
   const views = {
     login: ['#loginFormTemplate', '#registerFormTemplate', '#entriesTemplate', ], 
-    loggedin: ['#entriesTemplate', '#usersTemplate', '#logOut' ]
+
+    loggedin: ['#entriesTemplate', '#usersTemplate', '#commentsTemplate', 'logout']
   }
   
   function renderView(view) {
@@ -25,6 +26,7 @@
       // 6. Check for data loading dependencies
       if (template === '#entriesTemplate') { showAllEntries(); }
       if (template === '#usersTemplate') { showAllUsers(); }
+      if (template === '#commentsTemplate') { showAllComments(); }
 
       // 7. Bind Events
       if (template === '#registerFormTemplate') { bindRegisterEvents(); }
@@ -183,5 +185,33 @@ function bindLogoutEvents() {
   })
 }
 
+function showAllComments() {
+  const showComments = document.querySelector('#commentList');
 
+  fetch('/api/comments', {
 
+    method: 'GET'
+
+  }).then(response => {
+      
+    if(!response.ok){
+      console.log(response);
+      return Error(response.statusText)
+    } else {
+    
+     return response.json()
+    }
+  })
+  .then(comments => {
+    let markup = '';
+    comments.forEach(comment => {
+      markup += `<li> ${comment.content} </li>`;
+    })
+    
+    showComments.innerHTML = markup;
+    
+  })
+  .catch(error => {
+    console.error(error)
+  });
+}
