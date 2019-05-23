@@ -84,6 +84,7 @@ function bindLoginEvents() {
       }
     })
     .then(data => {
+      
       renderView(views.entries);
     })
     .catch(error => {
