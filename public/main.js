@@ -1,9 +1,7 @@
   const views = {
     login: ['#loginFormTemplate', '#entriesTemplate', ],
     registrer: ['#registerFormTemplate', '#entriesTemplate' ],
-    loggedin: ['#entriesTemplate', '#usersTemplate', '#commentsTemplate', '#newPostFormTemplate', '#logout']
-  
-  
+    loggedin: ['#entriesTemplate', '#usersTemplate', '#commentsTemplate', '#newPostFormTemplate', '#logout'] 
   }
   
   function renderView(view) {
@@ -165,7 +163,6 @@ function showAllEntries() {
     }
   })
   .then(entries => {
-    console.log(entries);
     let markup = '';
     let idCollapse = 0;
     entries.forEach(entry => {
@@ -202,7 +199,7 @@ function showAllEntries() {
     })
     
     showEntries.innerHTML = markup;
-    console.log(markup);
+    // console.log(markup);
     
   })
   .catch(error => {
@@ -263,6 +260,8 @@ function bindLogoutEvents() {
   })
 }
 
+// VISA KOMMENTARER
+
 function showAllComments() {
   const showComments = document.querySelector('#commentList');
 
@@ -283,8 +282,16 @@ function showAllComments() {
   .then(comments => {
     let markup = '';
     comments.forEach(comment => {
-      markup += `<li> ${comment.content} </li>`;
-    })
+
+      markup += `
+      <p> ${comment.content} </p>
+      <a 
+      href='http://localhost:8000/' 
+      onclick='deleteComment(${comment.commentID})'>
+      delete
+      </a>
+      `;
+    });
     
     showComments.innerHTML = markup;
     
