@@ -14,3 +14,7 @@ h1 {
 #registerBtn {
   background-color: antiquewhite;
 }
+
+#entryList {
+  margin-bottom: 100px;
+}

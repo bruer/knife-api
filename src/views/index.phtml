@@ -10,10 +10,10 @@
   <link href="data:image/x-icon;base64,AAABAAEAEBAQAAAAAAAoAQAAFgAAACgAAAAQAAAAIAAAAAEABAAAAAAAgAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAa2djAAoKCgAPDw4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADAAAgAAAAAAMzMzEBAQEBAzMzMRERERETMzMxERERERMzMzERERERAwAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD//wAA//8AAP//AAD//wAA//8AAHv/AAABVQAAAAAAAAAAAAAAAQAAe/8AAP//AAD//wAA//8AAP//AAD//wAA" rel="icon" type="image/x-icon" />
 </head>
 <body>
-  <div class="container">
+  <div>
     <h1><?=$title?></h1>
     <p>A journal for knifing people</p>
-    <div id="renderTarget"></div>
+    <div id="renderTarget" class="container"></div>
   </div>
 
   <template id="loginFormTemplate">
@@ -25,10 +25,10 @@
       <button type="submit">Logga in</button>
       </form> -->
 
-    <div class="d-flex justify-content-end ml-5 h-100 col-3" id="loginDiv">
+    <div class="d-flex justify-content-center mb-3 h-100 col " id="loginDiv">
             <div class="card" id="card">
                 <div class="card-header">
-                    <div class="d-flex justify-content-center"> 
+                    <div class=" d-flex justify-content-center"> 
                     <h2 id="card-head">Logga in</h2>
                     </div>
                 </div><!--Card-header-->
@@ -47,8 +47,8 @@
 
                 </div>
                 <div class="card-footer">
-                    <div class="row">
-                        <div class="col">
+                    <div class="row ">
+                        <div class="col d-flex justify-content-center">
                             <button class="btn btn-sm btn-secondary registerBtn">Registrera</button>
                         </div>
                     </div>
@@ -59,7 +59,7 @@
 
     
     <template id="registerFormTemplate">
-      <div class="d-flex justify-content-end ml-5 h-100 col-3" id="registerDiv">
+      <div class="d-flex justify-content-center mb-3 h-100 col" id="registerDiv">
             <div class="card" id="card">
                 <div class="card-header">
                     <div class="d-flex justify-content-center"> 
@@ -85,7 +85,7 @@
 
                 <div class="card-footer">
                     <div class="row">
-                        <div class="col">
+                        <div class="col d-flex justify-content-center">
                             <button class="btn btn-sm btn-secondary loginBtn">Logga in</button>
                         </div>
                     </div>
@@ -105,9 +105,8 @@
       </form>
     </template>
     
-    <template id="entriesTemplate">
-      <h2>Entries</h2>
-      <div id="entryList" class="col-3">
+    <template id="entriesTemplate"> 
+      <div id="entryList" class="col">
       
       </div>
     </template>
