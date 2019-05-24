@@ -1,5 +1,5 @@
   const views = {
-    login: ['#loginFormTemplate', '#entriesTemplate', ],
+    login: ['#commentsTemplate', '#loginFormTemplate', '#entriesTemplate'],
     registrer: ['#registerFormTemplate', '#entriesTemplate' ],
     loggedin: ['#entriesTemplate', '#usersTemplate', '#commentsTemplate', '#newPostFormTemplate', '#logout'] 
   }
@@ -282,16 +282,29 @@ function showAllComments() {
     comments.forEach(comment => {
 
       markup += `
-      <p> ${comment.content} </p>
-      <a
-      href='http://localhost:8000/' 
-      onclick='deleteComment(${comment.commentID})'>
-      <p>delete</p>
-      </a>
-      <a
-      onclick='updateComment(${comment.commentID})'>
-      <p>edit</p>
-      </a>
+      <div class='comment-box'>
+        <p> ${comment.content} </p>
+        <a
+        href='http://localhost:8000/' 
+        onclick='deleteComment(${comment.commentID})'>
+          <p>delete</p>
+        </a>
+        <a
+        href='#'
+        onclick='showCommentTextarea(${comment.commentID})'>
+          <p>edit</p>
+        </a>
+        <div id='comment-textarea-${comment.commentID}' class='hidden'
+          <form>
+            <textarea></textarea>
+          </form>
+          <a
+          href='#'
+          onclick='hideCommentTextarea(${comment.commentID})'>
+            <p>cancel</p>
+          </a>
+        </div>
+      </div>
       `;
     });
     

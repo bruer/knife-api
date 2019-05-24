@@ -14,3 +14,13 @@ h1 {
 #registerBtn {
   background-color: antiquewhite;
 }
+
+.comment-box {
+  width: 50%;
+  margin: 10px 0;
+  border: 1px solid;
+}
+
+.hidden {
+  display: none;
+}

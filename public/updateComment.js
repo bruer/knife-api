@@ -19,4 +19,14 @@ function updateComment(id) {
       console.error(error);
       
     });
-  }
+}
+
+function showCommentTextarea(id) {
+    const commentTextarea = document.querySelector(`#comment-textarea-${id}`);
+    commentTextarea.classList.remove('hidden');
+}
+
+function hideCommentTextarea(id) {
+    const commentTextarea = document.querySelector(`#comment-textarea-${id}`);
+    commentTextarea.classList.add('hidden');
+}
