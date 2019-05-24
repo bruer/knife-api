@@ -1,5 +1,5 @@
   const views = {
-    login: ['#commentsTemplate', '#loginFormTemplate', '#entriesTemplate'],
+    login: ['#loginFormTemplate', '#entriesTemplate'],
     registrer: ['#registerFormTemplate', '#entriesTemplate' ],
     loggedin: ['#entriesTemplate', '#usersTemplate', '#commentsTemplate', '#newPostFormTemplate', '#logout'] 
   }
