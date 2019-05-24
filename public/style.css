@@ -15,8 +15,13 @@ h1 {
   background-color: antiquewhite;
 }
 
+#commentsTemplate {
+  border: solid;
+  background: red;
+}
+
 .comment-box {
-  width: 50%;
+  width: 200px;
   margin: 10px 0;
   border: 1px solid;
 }

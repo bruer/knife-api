@@ -284,7 +284,7 @@ function showAllComments() {
 
       markup += `
       <div class='comment-box'>
-        <p> ${comment.content} </p>
+        <p>${comment.content}</p>
         <a
         href='http://localhost:8000/' 
         onclick='deleteComment(${comment.commentID})'>
@@ -307,6 +307,7 @@ function showAllComments() {
         </div>
       </div>
       `;
+      
     });
     
     showComments.innerHTML = markup;
