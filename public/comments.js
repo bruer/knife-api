@@ -40,12 +40,12 @@ function updateComment(id) {
     });
 }
 
-function showCommentTextarea(id) {
+function showEditCommentBox(id) {
     const commentTextarea = document.querySelector(`#editCommentBox${id}`);
     commentTextarea.classList.remove('hidden');
 }
 
-function hideCommentTextarea(id) {
+function hideEditCommentBox(id) {
     const commentTextarea = document.querySelector(`#editCommentBox${id}`);
     commentTextarea.classList.add('hidden');
 }

@@ -1,5 +1,5 @@
   const views = {
-    login: ['#loginFormTemplate', '#entriesTemplate'],
+    login: ['#commentsTemplate', '#loginFormTemplate', '#entriesTemplate'],
     registrer: ['#registerFormTemplate', '#entriesTemplate' ],
     loggedin: ['#entriesTemplate', '#usersTemplate', '#newPostFormTemplate', '#commentFormTemplate', '#commentsTemplate', '#logout'] 
   }
@@ -315,11 +315,9 @@ function showAllComments() {
     comments.forEach(comment => {
 
       markup += `
-      <div class='comment-box'>
+      <div id='comment${comment.commentID}' class='comment-box'>
         <p>${comment.content}</p>
-        <a
-        href='#'
-        onclick='showCommentTextarea(${comment.commentID})'>
+        <a href='javascript:showEditCommentBox(${comment.commentID})'>
           Edit
         </a>
         <a
@@ -332,9 +330,7 @@ function showAllComments() {
             <textarea></textarea>
             <button type='submit' id='postEditedCommentBtn' onclick='updateComment(${comment.commentID})'>Post</button>
           </form>
-          <a
-          href='#'
-          onclick='hideCommentTextarea(${comment.commentID})'>
+          <a href='javascript:hideEditCommentBox(${comment.commentID})'>
             Cancel
           </a>
         </div>
