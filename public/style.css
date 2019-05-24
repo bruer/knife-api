@@ -24,3 +24,7 @@ h1 {
 .hidden {
   display: none;
 }
+
+#entryList {
+  margin-bottom: 100px;
+}

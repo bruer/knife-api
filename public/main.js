@@ -16,6 +16,7 @@
       
       // 4. Skapa en div 
       const div = document.createElement('div');
+      div.setAttribute('class', 'row justify-content-center');
       
       // 4.2 Fyll diven med innehåll
       div.innerHTML = templateMarkup;
@@ -135,8 +136,8 @@ function bindNewPostEvents() {
       if(!response.ok){
         return Error(response.statusText)
       } else {
+        newPostForm.reset()
         return response.json()
-        
       }
     }).catch(error => {
       console.error(error)
@@ -167,7 +168,7 @@ function showAllEntries() {
     let idCollapse = 0;
     entries.forEach(entry => {
       idCollapse++;
-      markup += `    <div id="accordion${idCollapse}" class="mb-2">
+      markup += `    <div id="accordion${idCollapse}" class="mb-2 justify-content-center w-500">
       <div class="card d-flex w-100">
         <div class="card-header" id="heading${idCollapse}">
           <h5 class="mb-0 d-flex justify-content-center">
