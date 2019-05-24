@@ -22,11 +22,11 @@ function updateComment(id) {
 }
 
 function showCommentTextarea(id) {
-    const commentTextarea = document.querySelector(`#comment-textarea-${id}`);
+    const commentTextarea = document.querySelector(`#editCommentBox${id}`);
     commentTextarea.classList.remove('hidden');
 }
 
 function hideCommentTextarea(id) {
-    const commentTextarea = document.querySelector(`#comment-textarea-${id}`);
+    const commentTextarea = document.querySelector(`#editCommentBox${id}`);
     commentTextarea.classList.add('hidden');
 }

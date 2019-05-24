@@ -1,7 +1,7 @@
   const views = {
-    login: ['#loginFormTemplate', '#entriesTemplate'],
+    login: ['#commentsTemplate', '#loginFormTemplate', '#entriesTemplate'],
     registrer: ['#registerFormTemplate', '#entriesTemplate' ],
-    loggedin: ['#entriesTemplate', '#usersTemplate', '#commentsTemplate', '#newPostFormTemplate', '#logout'] 
+    loggedin: ['#entriesTemplate', '#usersTemplate', '#commentsTemplate', '#newPostFormTemplate', '#commentFormTemplate', '#logout'] 
   }
   
   function renderView(view) {
@@ -159,7 +159,7 @@ function showAllEntries() {
       console.log(response);
       return Error(response.statusText)
     } else {
-    
+
       return response.json()
     }
   })
@@ -286,23 +286,24 @@ function showAllComments() {
       <div class='comment-box'>
         <p>${comment.content}</p>
         <a
-        href='http://localhost:8000/' 
-        onclick='deleteComment(${comment.commentID})'>
-          <p>delete</p>
-        </a>
-        <a
         href='#'
         onclick='showCommentTextarea(${comment.commentID})'>
-          <p>edit</p>
+          Edit
         </a>
-        <div id='comment-textarea-${comment.commentID}' class='hidden'
-          <form>
+        <a
+        href='http://localhost:8000/' 
+        onclick='deleteComment(${comment.commentID})'>
+          Delete
+        </a>
+        <div id='editCommentBox${comment.commentID}' class='hidden'
+          <form id='editCommentForm' onsubmit='console.log("hej")'>
             <textarea></textarea>
+            <button type='submit' id='postEditedCommentBtn' onclick='updateComment(${comment.commentID})'>Post</button>
           </form>
           <a
           href='#'
           onclick='hideCommentTextarea(${comment.commentID})'>
-            <p>cancel</p>
+            Cancel
           </a>
         </div>
       </div>

@@ -15,10 +15,11 @@ h1 {
   background-color: antiquewhite;
 }
 
-#commentsTemplate {
-  border: solid;
-  background: red;
+#entryList {
+  margin-bottom: 100px;
 }
+
+/* KOMMENTARER */
 
 .comment-box {
   width: 200px;
@@ -27,9 +28,5 @@ h1 {
 }
 
 .hidden {
-  display: none;
-}
-
-#entryList {
-  margin-bottom: 100px;
+  /* display: none; */
 }
