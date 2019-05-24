@@ -17,10 +17,7 @@ return function ($app) {
     $data = $request->getParsedBody();
 
     $comment->post(
-      $data['entryID'], 
-      $data['content'], 
-      $data['createdBy'], 
-      $data['createdAt']
+      $data['content']
     );
     
     return $response->withJson($data);

@@ -11,17 +11,16 @@ class Comment extends Mapper {
     return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
     
-    public function post($entryID, $content, $createdBy, $createdAt) {
+    public function post($content) {
         $statement = $this->db->prepare(
             "INSERT INTO comments (entryID, content, createdBy, createdAt)
-            VALUES (:entryID, :content, :createdBy, :createdAt)"
+            VALUES (:entryID, :content, :createdBy, NOW())"
         );
 
         $statement->execute([
-            ':entryID' => $entryID,
+            ':entryID' => 1,
             ':content' => $content,
-            ':createdBy' => $createdBy,
-            ':createdAt' => $createdAt
+            ':createdBy' => 1
         ]);
     }
 

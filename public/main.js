@@ -1,7 +1,7 @@
   const views = {
     login: ['#loginFormTemplate', '#entriesTemplate'],
     registrer: ['#registerFormTemplate', '#entriesTemplate' ],
-    loggedin: ['#entriesTemplate', '#usersTemplate', '#commentsTemplate', '#newPostFormTemplate', '#commentFormTemplate', '#logout'] 
+    loggedin: ['#entriesTemplate', '#usersTemplate', '#newPostFormTemplate', '#commentFormTemplate', '#commentsTemplate', '#logout'] 
   }
   
   function renderView(view) {
@@ -33,6 +33,7 @@
       if (template === '#registerFormTemplate') { bindRegisterEvents(); bindLoginFormEvents();  }
       if (template === '#loginFormTemplate') { bindLoginEvents(); bindRegisterFormEvents(); }
       if (template === '#newPostFormTemplate') { bindNewPostEvents(); }
+      if (template === '#commentFormTemplate') { bindCommentEvents(); }
       if (template === '#logout') { bindLogoutEvents(); }
     
     });
@@ -143,6 +144,37 @@ function bindNewPostEvents() {
       console.error(error)
     })
   })
+}
+
+// Skriva ny kommentar
+function bindCommentEvents() {
+
+  const commentForm = document.querySelector('#commentForm');
+
+  commentForm.addEventListener('submit', e => {
+    
+    e.preventDefault();
+  
+    const formData = new FormData(commentForm)
+
+    fetch('/api/comment', {
+
+      method: 'POST',
+      body: formData
+
+    }).then(response => {
+        
+      if(!response.ok){
+        return Error(response.statusText)
+      } 
+      else {
+        commentForm.reset()
+      }
+
+    }).catch(error => {
+      console.error(error)
+    })
+  });
 }
 
 //Visa alla entries på startsidan
