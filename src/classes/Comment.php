@@ -45,4 +45,15 @@ class Comment extends Mapper {
             ':commentID' => $commentID
         ]);
     }
+
+    function getAllFromEntry($entryID) {
+        $statement = $this->db->prepare(
+            "SELECT * FROM comments 
+            INNER JOIN entries ON comments.entryID = entries.entryID 
+            WHERE entries.entryID = {$entryID}"
+        );
+        $statement->execute();
+        
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
 }

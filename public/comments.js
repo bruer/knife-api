@@ -1,6 +1,6 @@
-function postComment() {
+function postComment(id) {
   
-  const commentForm = document.querySelector('#commentForm');
+  const commentForm = document.querySelector(`#commentForm${id}`);
 
   commentForm.addEventListener('submit', e => {
     
@@ -142,7 +142,7 @@ function getAllComments() {
       
     });
     
-    commentList.innerHTML = markup;
+    commentList.innerHTML = markup ;
 
     comments.forEach(comment => {
 

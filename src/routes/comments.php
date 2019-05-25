@@ -39,4 +39,12 @@ return function ($app) {
 
     $comment->delete($commentID);
   });
+
+  // Hämta alla kommentarer från ett specifikt inlägg
+  $app->get('/api/entry/{id}/comments', function($request, $response, $args) {
+    $comment = new Comment($this->db);
+    $entryID = $args['id'];
+
+    return $response->withJson($comment->getAllFromEntry($entryID));
+  });
 };

@@ -1,7 +1,7 @@
   const views = {
     login: ['#loginFormTemplate', '#entriesTemplate'],
     registrer: ['#registerFormTemplate', '#entriesTemplate' ],
-    loggedin: ['#entriesTemplate', '#usersTemplate', '#newPostFormTemplate', '#commentFormTemplate', '#commentsTemplate', '#logout'] 
+    loggedin: ['#entriesTemplate', '#usersTemplate', '#newPostFormTemplate', '#logout'] 
   }
   
   function renderView(view) {
@@ -33,7 +33,7 @@
       if (template === '#registerFormTemplate') { bindRegisterEvents(); bindLoginFormEvents();  }
       if (template === '#loginFormTemplate') { bindLoginEvents(); bindRegisterFormEvents(); }
       if (template === '#newPostFormTemplate') { bindNewPostEvents(); }
-      if (template === '#commentFormTemplate') { bindPostCommentEvents(); }
+      // if (template === '#commentFormTemplate') { bindPostCommentEvents(); }
       if (template === '#logout') { bindLogoutEvents(); }
     
     });
@@ -147,7 +147,7 @@ function bindNewPostEvents() {
 }
 
 // Skriva ny kommentar
-function bindPostCommentEvents() { postComment(); }
+// function bindPostCommentEvents() { postComment(); }
 
 //Visa alla entries på startsidan
 function showAllEntries() {
@@ -197,14 +197,32 @@ function showAllEntries() {
                     <p class="text-muted">${entry.userID}</p>   
                 </div>
             </div>
+
+            <div>
+              <form id="commentForm${entry.entryID}">
+                <label for="commentContent${entry.entryID}">Write a comment</label><br>
+                <textarea name="content" id="commentContent${entry.entryID}"></textarea><br>
+                <button type="submit">Post</button>
+              </form>
+            </div>
+            
+            <div id="commentList"></div>
+
           </div>
         </div>
       </div>
     </div>`;
     })
-    
+
     showEntries.innerHTML = markup;
-    // console.log(markup);
+
+    entries.forEach(entry => {
+
+      postComment(entry.entryID);
+
+    });
+    
+    getAllComments();
     
   })
   .catch(error => {
