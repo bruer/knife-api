@@ -16,9 +16,7 @@ return function ($app) {
     $comment = new Comment($this->db);
     $data = $request->getParsedBody();
 
-    $comment->post(
-      $data['content']
-    );
+    $comment->post($data['content']);
     
     return $response->withJson($data);
   });

@@ -33,7 +33,7 @@
       if (template === '#registerFormTemplate') { bindRegisterEvents(); bindLoginFormEvents();  }
       if (template === '#loginFormTemplate') { bindLoginEvents(); bindRegisterFormEvents(); }
       if (template === '#newPostFormTemplate') { bindNewPostEvents(); }
-      if (template === '#commentFormTemplate') { bindCommentEvents(); }
+      if (template === '#commentFormTemplate') { bindPostCommentEvents(); }
       if (template === '#logout') { bindLogoutEvents(); }
     
     });
@@ -147,35 +147,7 @@ function bindNewPostEvents() {
 }
 
 // Skriva ny kommentar
-function bindCommentEvents() {
-
-  const commentForm = document.querySelector('#commentForm');
-
-  commentForm.addEventListener('submit', e => {
-    
-    e.preventDefault();
-  
-    const formData = new FormData(commentForm)
-
-    fetch('/api/comment', {
-
-      method: 'POST',
-      body: formData
-
-    }).then(response => {
-        
-      if(!response.ok){
-        return Error(response.statusText)
-      } 
-      else {
-        commentForm.reset()
-      }
-
-    }).catch(error => {
-      console.error(error)
-    })
-  });
-}
+function bindPostCommentEvents() { postComment(); }
 
 //Visa alla entries på startsidan
 function showAllEntries() {
@@ -273,6 +245,10 @@ function showAllUsers() {
   });
 }
 
+// VISA KOMMENTARER
+
+function showAllComments() { getAllComments(); }
+
 // LOGGA UT
 function bindLogoutEvents() {
   const logoutBtn = document.querySelector('#logoutBtn')
@@ -290,60 +266,3 @@ function bindLogoutEvents() {
 
   })
 }
-
-// VISA KOMMENTARER
-
-function showAllComments() {
-  const showComments = document.querySelector('#commentList');
-
-  fetch('/api/comments', {
-
-    method: 'GET'
-
-  }).then(response => {
-      
-    if(!response.ok){
-      console.log(response);
-      return Error(response.statusText)
-    } else {
-    
-     return response.json()
-    }
-  })
-  .then(comments => {
-    let markup = '';
-    comments.forEach(comment => {
-
-      markup += `
-      <div id='comment${comment.commentID}' class='comment-box'>
-        <p>${comment.content}</p>
-        <a href='javascript:showEditCommentBox(${comment.commentID})'>
-          Edit
-        </a>
-        <a
-        href='http://localhost:8000/' 
-        onclick='deleteComment(${comment.commentID})'>
-          Delete
-        </a>
-        <div id='editCommentBox${comment.commentID}' class='hidden'
-          <form id='editCommentForm' onsubmit='console.log("hej")'>
-            <textarea></textarea>
-            <button type='submit' id='postEditedCommentBtn' onclick='updateComment(${comment.commentID})'>Post</button>
-          </form>
-          <a href='javascript:hideEditCommentBox(${comment.commentID})'>
-            Cancel
-          </a>
-        </div>
-      </div>
-      `;
-      
-    });
-    
-    showComments.innerHTML = markup;
-    
-  })
-  .catch(error => {
-    console.error(error)
-  });
-}
-
