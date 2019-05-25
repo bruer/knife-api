@@ -137,6 +137,8 @@ function getAllComments() {
         </div>
       </div>
       `;
+
+      // markup += buildComment(comment.commentID, comment.content, comment.createdAt);
       
     });
     
@@ -152,6 +154,33 @@ function getAllComments() {
   .catch(error => {
     console.error(error)
   });
+}
+
+function buildComment(id, content, date) {
+
+  return `
+    <div id='comment${id}' class='comment-box'>
+      <p>${content}</p>
+      <p>${date}</p>
+      <a href='javascript:showEditCommentBox(${id})'>
+        Edit
+      </a>
+      <a
+      href='http://localhost:8000/' 
+      onclick='deleteComment(${id})'>
+        Delete
+      </a>
+      <div id='editCommentBox${id}' class='hidden'>
+        <form id='editCommentForm${id}'>
+          <textarea name='content'></textarea>
+          <button type='submit'>Post</button>
+        </form>
+        <a href='javascript:hideEditCommentBox(${id})'>
+          Cancel
+        </a>
+      </div>
+    </div>
+  `;
 }
 
 function showEditCommentBox(id) {
