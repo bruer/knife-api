@@ -38,11 +38,5 @@ return function ($app) {
     $commentID = $args['id'];
 
     $comment->delete($commentID);
-
-    // if ($comment->delete($commentID)) {
-    //   return $response->withJson(['success'=>TRUE]); 
-    // } else {
-    //   return $response->withJson(['success'=>FALSE]);
-    // };
   });
 };

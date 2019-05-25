@@ -30,4 +30,15 @@ class User extends Mapper {
       ':password'=> password_hash($_POST['password'], PASSWORD_BCRYPT)
     ]);
   }
+
+  // Ta bort användare
+  public function deleteUser($userID) {
+    $statement = $this->db->prepare(
+        "DELETE FROM users 
+        WHERE userID = :userID"
+    );
+    $statement->execute([
+        ':userID' => $userID
+    ]);
+}
 }
