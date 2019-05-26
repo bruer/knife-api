@@ -33,7 +33,6 @@
       if (template === '#registerFormTemplate') { bindRegisterEvents(); bindLoginFormEvents();  }
       if (template === '#loginFormTemplate') { bindLoginEvents(); bindRegisterFormEvents(); }
       if (template === '#newPostFormTemplate') { bindNewPostEvents(); }
-      // if (template === '#commentFormTemplate') { bindPostCommentEvents(); }
       if (template === '#logout') { bindLogoutEvents(); }
     
     });
@@ -146,9 +145,6 @@ function bindNewPostEvents() {
   })
 }
 
-// Skriva ny kommentar
-// function bindPostCommentEvents() { postComment(); }
-
 //Visa alla entries på startsidan
 function showAllEntries() {
   const showEntries = document.querySelector('#entryList');
@@ -198,15 +194,9 @@ function showAllEntries() {
                 </div>
             </div>
 
-            <div>
-              <form id="commentForm${entry.entryID}">
-                <label for="commentContent${entry.entryID}">Write a comment</label><br>
-                <textarea name="content" id="commentContent${entry.entryID}"></textarea><br>
-                <button type="submit">Post</button>
-              </form>
-            </div>
+            <div id="postComment${entry.entryID}"></div>
             
-            <div id="commentList"></div>
+            <div id="commentList${entry.entryID}"></div>
 
           </div>
         </div>
@@ -216,13 +206,19 @@ function showAllEntries() {
 
     showEntries.innerHTML = markup;
 
+    // Hämta entryID för varje inlägg
     entries.forEach(entry => {
 
-      postComment(entry.entryID);
+      // Visa formulär för att posta kommentar
+      showPostComment(entry.entryID);
+
+      // Visa inläggets kommentarer
+      showComments(entry.entryID);
+
+      // Event för att skriva ny kommentar
+      bindPostCommentEvents(entry.entryID);
 
     });
-    
-    getAllComments();
     
   })
   .catch(error => {
@@ -262,10 +258,6 @@ function showAllUsers() {
     console.error(error)
   });
 }
-
-// VISA KOMMENTARER
-
-function showAllComments() { getAllComments(); }
 
 // LOGGA UT
 function bindLogoutEvents() {

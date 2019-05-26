@@ -1,194 +1,207 @@
-function postComment(id) {
-  
-  const commentForm = document.querySelector(`#commentForm${id}`);
-
-  commentForm.addEventListener('submit', e => {
-    
+function bindPostCommentEvents(id) {
+  const form = document.querySelector(`#commentForm${id}`);
+  form.addEventListener('submit', e => 
+  {
     e.preventDefault();
-  
-    const formData = new FormData(commentForm);
-
-    fetch('/api/comment', {
-
+    const formData = new FormData(form);
+    fetch(`/api/entry/${id}/comment`, 
+    {
       method: 'POST',
       body: formData
-
-    }).then(response => {
-
+    })
+    .then(response => 
+      {
       console.log(response.json());
-        
-      if(!response.ok){
+      if(!response.ok)
+      {
         return Error(response.statusText);
       } 
-      else {
-        commentForm.reset();
+      else 
+      {
+        form.reset();
       }
-
-    }).catch(error => {
-      console.error(error);
     })
+    .catch(error => 
+      {
+        console.error(error);
+      });
   });
 }
 
-function deleteComment(id) {
-  
-  fetch(`/api/comment/${id}`, {
-
-    method: 'DELETE'
-
-  })
-  .then(response => {
-
-    if(!response.ok) {
-      return Error(response.statusText);
-    }
-  })
-  .catch(error => {
-
-    console.error(error);
-    
+function bindDeleteCommentEvents(id) {
+  const btn = document.querySelector(`#deleteCommentBtn${id}`);
+  btn.addEventListener('click', () => 
+  {
+    console.log(id);
+    fetch(`/api/comment/${id}`, 
+    {
+      method: 'DELETE'
+    })
+    .then(response => {
+      if(!response.ok) 
+      {
+        return Error(response.statusText);
+      }
+    })
+    .catch(error => 
+      {
+        console.error(error);
+      });
   });
 }
 
-function updateComment(id) {
-
-  const editForm = document.querySelector(`#editCommentForm${id}`);
-
-  editForm.addEventListener('submit', e => {
-        
+function bindUpdateCommentEvents(id) {
+  const form = document.querySelector(`#editCommentForm${id}`);
+  form.addEventListener('submit', e => 
+  {      
     e.preventDefault();
-  
-    const formData = new FormData(editForm);
+    const formData = new FormData(form);
 
     // formData.forEach((a, b) => { console.log(a) });
 
     const object = {};
-    formData.forEach((value, key) => { object[key] = value });
-
-    fetch(`/api/comment/${id}`, {
-
+    formData.forEach((value, key) => 
+    { 
+      object[key] = value 
+    });
+    fetch(`/api/comment/${id}`, 
+    {
       method: 'PUT',
       body: JSON.stringify(object),
-      headers: {
+      headers: 
+      {
         'Content-Type': 'application/json'
       }
-
-    }).then(response => {
-        
-      if(!response.ok){
+    })
+    .then(response => {    
+      if(!response.ok)
+      {
         return Error(response.statusText)
       } 
-      else {
-        editForm.reset()
+      else 
+      {
+        form.reset()
       }
-
-    }).catch(error => {
-      console.error(error)
     })
+    .catch(error => 
+      {
+        console.error(error)
+      });
   });
 }
 
-function getAllComments() {
-  
-  const commentList = document.querySelector('#commentList');
-
-  fetch('/api/comments', {
-
+function showComments(id) {
+  const commentList = document.querySelector(`#commentList${id}`);
+  fetch(`/api/entry/${id}/comments`, 
+  {
     method: 'GET'
-
-  }).then(response => {
-      
-    if(!response.ok){
-      console.log(response);
-      return Error(response.statusText)
+  })
+  .then(response => 
+    {
+    if(!response.ok)
+    {
+      return Error(response.statusText);
     } 
-    else {
-      return response.json()
+    else 
+    {
+      return response.json();
     }
   })
-  .then(comments => {
-    
+  .then(comments => 
+    {
     let markup = '';
-    
-    comments.forEach(comment => {
-
+    comments.forEach(comment => 
+      {
       markup += `
-      <div id='comment${comment.commentID}' class='comment-box'>
-        <p>${comment.content}</p>
-        <p>${comment.createdAt}</p>
-        <a href='javascript:showEditCommentBox(${comment.commentID})'>
-          Edit
-        </a>
-        <a
-        href='http://localhost:8000/' 
-        onclick='deleteComment(${comment.commentID})'>
-          Delete
-        </a>
-        <div id='editCommentBox${comment.commentID}' class='hidden'>
-
-          <form id='editCommentForm${comment.commentID}'>
-            <textarea name='content'></textarea>
-            <button type='submit'>Post</button>
-          </form>
-
-          <a href='javascript:hideEditCommentBox(${comment.commentID})'>
-            Cancel
+        <div id='comment${comment.commentID}' class='comment-box'>
+          <p>${comment.content}</p>
+          <p>${comment.createdAt}</p>
+          <a href='javascript:show(${comment.commentID})'>
+             Edit
           </a>
+          <a href='http://localhost:8000/'
+             id='deleteCommentBtn${comment.commentID}'>
+             Delete
+          </a>
+          <div id='commentBox${comment.commentID}' class='hidden'>
+            <form id='editCommentForm${comment.commentID}'>
+              <textarea name='content'></textarea>
+              <button type='submit'>
+                 Post edit
+              </button>
+              <a href='javascript:hide(${comment.commentID})'>
+                 Cancel
+              </a>
+            </form>
+          </div>
         </div>
-      </div>
-      `;
-
-      // markup += buildComment(comment.commentID, comment.content, comment.createdAt);
-      
+        `;
+        // markup += buildComment(comment.commentID, comment.content, comment.createdAt);
     });
-    
-    commentList.innerHTML = markup ;
-
-    comments.forEach(comment => {
-
-      updateComment(comment.commentID);
-
-    });
-    
+    commentList.innerHTML = markup;
+    comments.forEach(comment => 
+      {
+        bindDeleteCommentEvents(comment.commentID);
+        bindUpdateCommentEvents(comment.commentID);
+      });
   })
-  .catch(error => {
-    console.error(error)
-  });
+  .catch(error => 
+    {
+      console.error(error)
+    });
 }
 
-function buildComment(id, content, date) {
-
-  return `
-    <div id='comment${id}' class='comment-box'>
-      <p>${content}</p>
-      <p>${date}</p>
-      <a href='javascript:showEditCommentBox(${id})'>
-        Edit
-      </a>
-      <a
-      href='http://localhost:8000/' 
-      onclick='deleteComment(${id})'>
-        Delete
-      </a>
-      <div id='editCommentBox${id}' class='hidden'>
-        <form id='editCommentForm${id}'>
-          <textarea name='content'></textarea>
-          <button type='submit'>Post</button>
-        </form>
-        <a href='javascript:hideEditCommentBox(${id})'>
-          Cancel
+function showPostComment(id) {
+  const postComment = document.querySelector(`#postComment${id}`);
+  postComment.innerHTML = `
+    <a href='javascript:show(${id})'>
+       Write a comment
+    </a>
+    <div id='commentBox${id}' class='hidden'>
+      <form id="commentForm${id}">
+        <textarea name="content"></textarea><br>
+        <button type="submit">
+           Post comment
+        </button>
+        <a href='javascript:hide(${id})'>
+           Cancel
         </a>
-      </div>
-    </div>
-  `;
+      </form>
+    </div>`;
 }
 
-function showEditCommentBox(id) {
-  const commentTextarea = document.querySelector(`#editCommentBox${id}`);
+// function buildComment(id, content, date) {
+//   return `
+//     <div id='comment${id}' class='comment-box'>
+//       <p>${content}</p>
+//       <p>${date}</p>
+//       <a href='javascript:showCommentBox(${id})'>
+//         Edit
+//       </a>
+//       <a
+//       href='http://localhost:8000/' 
+//       onclick='deleteComment(${id})'>
+//         Delete
+//       </a>
+//       <div id='editCommentBox${id}' class='hidden'>
+//         <form id='editCommentForm${id}'>
+//           <textarea name='content'></textarea>
+//           <button type='submit'>Post</button>
+//         </form>
+//         <a href='javascript:hideCommentBox(${id})'>
+//           Cancel
+//         </a>
+//       </div>
+//     </div>
+//   `;
+// }
+
+function show(id) {
+  const commentTextarea = document.querySelector(`#commentBox${id}`);
   commentTextarea.classList.remove('hidden');
 }
 
-function hideEditCommentBox(id) {
-  const commentTextarea = document.querySelector(`#editCommentBox${id}`);
+function hide(id) {
+  const commentTextarea = document.querySelector(`#commentBox${id}`);
   commentTextarea.classList.add('hidden');
 }

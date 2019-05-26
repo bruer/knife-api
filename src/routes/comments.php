@@ -21,6 +21,16 @@ return function ($app) {
     return $response->withJson($data);
   });
 
+  $app->post('/api/entry/{id}/comment', function($request, $response, $args) {
+    $comment = new Comment($this->db);
+    $entryID = $args['id'];
+    $data = $request->getParsedBody();
+
+    $comment->post($entryID, $data['content']);
+    
+    return $response->withJson($data);
+  });
+
   // Uppdatera en kommentar
   $app->put('/api/comment/{id}', function($request, $response, $args) {
     $comment = new Comment($this->db);
