@@ -21,6 +21,7 @@ function bindPostCommentEvents(id) {
         form.reset();
       }
     })
+    .then(renderView(views.loggedin))
     .catch(error => 
       {
         console.error(error);

@@ -10,11 +10,12 @@
   <link href="data:image/x-icon;base64,AAABAAEAEBAQAAAAAAAoAQAAFgAAACgAAAAQAAAAIAAAAAEABAAAAAAAgAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAa2djAAoKCgAPDw4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADAAAgAAAAAAMzMzEBAQEBAzMzMRERERETMzMxERERERMzMzERERERAwAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD//wAA//8AAP//AAD//wAA//8AAHv/AAABVQAAAAAAAAAAAAAAAQAAe/8AAP//AAD//wAA//8AAP//AAD//wAA" rel="icon" type="image/x-icon" />
 </head>
 <body>
-  <div>
+  <div class="header-box">
     <h1><?=$title?></h1>
     <p>A journal for knifing people</p>
-    <div id="renderTarget" class="container"></div>
   </div>
+  
+    <div id="renderTarget" class="container"></div>
 
   <template id="loginFormTemplate">
 <!--       <h2>Login</h2>  
@@ -110,9 +111,11 @@
     </template>
 
     <template id="usersTemplate">
+    <div class="user-list-box">
       <h2>Users</h2>
-      <ul id="usersList">
+      <ul id="usersList" class="usersList">
       </ul>
+      </div>
     </template>
 
     <template id="logout">
