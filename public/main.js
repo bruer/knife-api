@@ -243,6 +243,7 @@ function showAllEntries() {
         </div>
       </div>`;
       } else {
+        
         markup += `    <div id="accordion${idCollapse}" class="mb-2 justify-content-center w-500">
         <div class="card d-flex w-100">
           <div class="card-header" id="heading${idCollapse}">
@@ -337,7 +338,7 @@ function updateEntry(id) {
 
   form.addEventListener('submit', e => {
     e.preventDefault();
-    const formData = new formData(form);
+    const formData = new FormData(form);
 
     const object = {};
     formData.forEach((value, key) =>

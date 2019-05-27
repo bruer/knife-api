@@ -23,9 +23,10 @@ class Entry extends Mapper {
     }
 
     public function updateEntry($entryID, $content){
-      $statement = $this->db->prepare("UPDATE entries
+      $statement = $this->db->prepare(
+      "UPDATE entries
       SET content = :content
-      WHERE entryID = :entryID}");
+      WHERE entryID = :entryID");
 
       $statement->execute([
         ':entryID' => $entryID,

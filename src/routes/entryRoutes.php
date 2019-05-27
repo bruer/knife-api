@@ -61,9 +61,10 @@ return function ($app) {
     $entryID = $args['entryID'];
     $data = $request->getParsedBody();
 
-    $entry->update($entryID, $data['content']);
+    $entry->updateEntry($entryID, $data['content']);
 
     return $response->withJson($data);
   });
+
 }
 ?>
