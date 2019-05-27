@@ -210,12 +210,12 @@ function showAllEntries() {
                 </div>
               <div class="row">
                 <div class="col d-flex justify-content-center">
-                  <form id="updateEntryForm${id}">
+                  <form id="updateEntryForm${id}" class="hidden">
                     <div class="form-group">
                     <input type="text" class="form-control" placeholder="New content here..." name="content"> 
                     </div>
                     <button type="submit" class="btn btn-primary btn-sm">Post edit</button>  
-                    <button class="btn btn-secondary btn-sm">Cancel</button>     
+                    <a href="javascript:hideUpdateForm(${id})" class="btn btn-secondary btn-sm">Cancel</a>     
                   </form>
                 </div>
               </div>
@@ -227,7 +227,7 @@ function showAllEntries() {
                       <p class="text-muted">${entry.userID}</p>   
                   </div>
                   <div class="col d-flex justify-content-center">
-                    <button class="btn btn-secondary btn-sm" id="updateBtn${id}">update entry</button>   
+                    <a href="javascript:showUpdateForm(${id})" class="btn btn-secondary btn-sm" id="updateBtn${id}">update entry</a>   
                   </div>
                   <div class="col d-flex justify-content-center">
                     <button class="btn btn-danger btn-sm" id="deleteBtn${id}">Delete entry</button>   
@@ -243,6 +243,7 @@ function showAllEntries() {
         </div>
       </div>`;
       } else {
+        
         markup += `    <div id="accordion${idCollapse}" class="mb-2 justify-content-center w-500">
         <div class="card d-flex w-100">
           <div class="card-header" id="heading${idCollapse}">
@@ -371,6 +372,15 @@ function updateEntry(id) {
       });
   });
 }
+//Visa och göm update formuläret
+function showUpdateForm(id){
+  const updateForm = document.querySelector(`#updateEntryForm${id}`);
+  updateForm.classList.remove('hidden');
+};
+function hideUpdateForm(id){
+  const updateForm = document.querySelector(`#updateEntryForm${id}`);
+  updateForm.classList.add('hidden');
+};
 
 //Visa alla användare på sidan
 
