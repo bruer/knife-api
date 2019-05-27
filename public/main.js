@@ -1,7 +1,8 @@
   const views = {
     login: ['#loginFormTemplate', '#entriesTemplate'],
     registrer: ['#registerFormTemplate', '#entriesTemplate' ],
-    loggedin: ['#entriesTemplate', '#usersTemplate', '#newPostFormTemplate', '#logout'] 
+    loggedin: ['#entriesTemplate', '#usersTemplate', '#newPostFormTemplate', '#logout'],
+    loginfailed: ['#loginFormTemplate', '#loginFailed', '#entriesTemplate']
   }
   
   function renderView(view) {
@@ -119,14 +120,12 @@ function bindLoginEvents() {
     .then(response => {
       console.log(response.json());
       if(!response.ok){
+        renderView(views.loginfailed);
         return Error(response.statusText)
       } else {
         // return response.json();
         renderView(views.loggedin);
       }
-    })
-    .then(data => {
-      // renderView(views.loggedin);
     })
     .catch(error => {
       console.error(error)
@@ -347,8 +346,6 @@ function bindLogoutEvents() {
   
   logoutBtn.addEventListener('click', e =>{
     e.preventDefault();
-
-    console.log('Log out?');
   
     fetch('/api/logout').then(() =>
       renderView(views.login)
