@@ -164,9 +164,12 @@ function showAllEntries() {
     }
   })
   .then(entries => {
+
     let markup = '';
     let idCollapse = 0;
     entries.forEach(entry => {
+      let id = entry.entryID;
+
       idCollapse++;
       markup += `    <div id="accordion${idCollapse}" class="mb-2 justify-content-center w-500">
       <div class="card d-flex w-100">
@@ -192,6 +195,9 @@ function showAllEntries() {
                 <div class="col d-flex justify-content-center">
                     <p class="text-muted">${entry.userID}</p>   
                 </div>
+                <div class="col d-flex justify-content-center">
+                  <button type="button" class="btn btn-danger btn-sm" id="deleteBtn${id}">Delete entry</button>   
+                </div>                
             </div>
 
             <div id="postComment${entry.entryID}"></div>
@@ -208,6 +214,8 @@ function showAllEntries() {
 
     // Hämta entryID för varje inlägg
     entries.forEach(entry => {
+      // radera entries
+      deleteEntry(entry.entryID)
 
       // Visa formulär för att posta kommentar
       showPostComment(entry.entryID);
@@ -225,6 +233,26 @@ function showAllEntries() {
     console.error(error)
   }); 
 }
+
+//radera entry
+function deleteEntry(id) {
+  const btn = document.querySelector(`#deleteBtn${id}`);
+  btn.addEventListener('click', () => {
+  fetch(`api/entry/${id}`, {
+
+    method: 'DELETE'
+
+  }).then(response => {
+    console.log(response);
+    if(!response.ok) {
+      return Error(response.statusText);
+    }
+  }).catch(error => 
+    {
+      console.error(error);
+    });
+  });
+}; 
 
 //Visa alla användare på sidan
 
