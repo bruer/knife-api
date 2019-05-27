@@ -366,7 +366,9 @@ function updateEntry(id) {
       {
         form.reset();
       }
-    }).catch(error => 
+    }).then(
+      renderView(views.loggedin)
+      ).catch(error => 
       {
         console.error(error)
       });
