@@ -26,7 +26,7 @@ class User extends Mapper {
     );
     $statement->execute([
       ':username' => $username,
-      ':password'=> password_hash($_POST['password'], PASSWORD_BCRYPT)
+      ':password'=> password_hash($password, PASSWORD_BCRYPT)
     ]);
   }
 
@@ -41,12 +41,12 @@ class User extends Mapper {
     ]);
   }
 
-  // Identifiera användare
+  // Hämta alla användare som matchar angivet namn
   public function getUserByName($username) {
     $statement = $this->db->prepare("SELECT * FROM users WHERE username = :username");
     $statement->execute([
       ':username' => $username
     ]);
-    return $statement->fetch(PDO::FETCH_ASSOC);
+    return $statement->fetchAll(PDO::FETCH_ASSOC);
   }
 }

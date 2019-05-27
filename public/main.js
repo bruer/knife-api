@@ -97,7 +97,7 @@ function bindRegisterEvents() {
         return Error(response.statusText)
       } else {
         registerForm.reset();
-        return response.json()    
+        // return response.json()    
       }
     }).catch(error => {
       console.error(error)
@@ -119,12 +119,10 @@ function bindLoginEvents() {
       body: formData
     })
     .then(response => {
-      console.log(response.json());
       if(!response.ok){
         renderView(views.loginfailed);
         return Error(response.statusText)
       } else {
-        // return response.json();
         renderView(views.loggedin);
       }
     })
@@ -290,7 +288,7 @@ function showAllEntries() {
       deleteEntry(entry.entryID);
 
       //updatera entries
-      updateEntry(entry.entryID);
+      // updateEntry(entry.entryID);
 
       // Visa formulär för att posta kommentar
       showPostComment(entry.entryID);

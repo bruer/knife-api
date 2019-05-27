@@ -20,7 +20,7 @@ return function ($app) {
     return $response->withJson($data);
   });
 
-  // Hämta specifik användare 
+  // Hämta specifik användare med id 
   $app->get('/api/user/{id}', function ($request, $response, $args) {
     $user = new User($this->db);
     $userID = $args['id'];
@@ -34,6 +34,7 @@ return function ($app) {
     $user->deleteUser($userID);
   });
 
+  // Registrera användare
   $app->post('/api/user/{id}', function ($request, $response) {
     $user = new User($this->db);
     $data = $request->getParsedBody();
