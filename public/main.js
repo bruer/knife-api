@@ -167,47 +167,89 @@ function showAllEntries() {
 
     let markup = '';
     let idCollapse = 0;
+    //test variabeln simulerar en variabel för att kolla om man är inloggad eller ej
+    //om man är inloggad ska man få med deleteEntry annars inte
+    let test = true;
     entries.forEach(entry => {
       let id = entry.entryID;
 
       idCollapse++;
-      markup += `    <div id="accordion${idCollapse}" class="mb-2 justify-content-center w-500">
-      <div class="card d-flex w-100">
-        <div class="card-header" id="heading${idCollapse}">
-          <h5 class="mb-0 d-flex justify-content-center">
-            <button class="btn btn-link" data-toggle="collapse" data-target="#collapse${idCollapse}" aria-expanded="true" aria-controls="collapse${idCollapse}">
-              ${entry.title}
-            </button>
-          </h5>
-        </div>
-    
-        <div id="collapse${idCollapse}" class="collapse hide" aria-labelledby="heading${idCollapse}" data-parent="#accordion${idCollapse}">
-          <div class="card-body">
+      if (test == false ) {
+         
+        markup += `    <div id="accordion${idCollapse}" class="mb-2 justify-content-center w-500">
+        <div class="card d-flex w-100">
+          <div class="card-header" id="heading${idCollapse}">
+            <h5 class="mb-0 d-flex justify-content-center">
+              <button class="btn btn-link" data-toggle="collapse" data-target="#collapse${idCollapse}" aria-expanded="true" aria-controls="collapse${idCollapse}">
+                ${entry.title}
+              </button>
+            </h5>
+          </div>
+      
+          <div id="collapse${idCollapse}" class="collapse hide" aria-labelledby="heading${idCollapse}" data-parent="#accordion${idCollapse}">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col d-flex justify-content-center" >
+                        <p>${entry.content}</p>
+                    </div>
+                </div>
               <div class="row">
-                  <div class="col d-flex justify-content-center" >
-                      <p>${entry.content}</p>
+                  <div class="col d-flex justify-content-center">
+                      <p class="text-muted">${entry.createdAt}</p>
                   </div>
+                  <div class="col d-flex justify-content-center">
+                      <p class="text-muted">${entry.userID}</p>   
+                  </div>
+                  <div class="col d-flex justify-content-center">
+                    <button type="button" class="btn btn-danger btn-sm" id="deleteBtn${id}">Delete entry</button>   
+                  </div>                
               </div>
-            <div class="row">
-                <div class="col d-flex justify-content-center">
-                    <p class="text-muted">${entry.createdAt}</p>
-                </div>
-                <div class="col d-flex justify-content-center">
-                    <p class="text-muted">${entry.userID}</p>   
-                </div>
-                <div class="col d-flex justify-content-center">
-                  <button type="button" class="btn btn-danger btn-sm" id="deleteBtn${id}">Delete entry</button>   
-                </div>                
+  
+              <div id="postComment${entry.entryID}"></div>
+              
+              <div id="commentList${entry.entryID}"></div>
+  
             </div>
-
-            <div id="postComment${entry.entryID}"></div>
-            
-            <div id="commentList${entry.entryID}"></div>
-
           </div>
         </div>
-      </div>
-    </div>`;
+      </div>`;
+      } else {
+        markup += `    <div id="accordion${idCollapse}" class="mb-2 justify-content-center w-500">
+        <div class="card d-flex w-100">
+          <div class="card-header" id="heading${idCollapse}">
+            <h5 class="mb-0 d-flex justify-content-center">
+              <button class="btn btn-link" data-toggle="collapse" data-target="#collapse${idCollapse}" aria-expanded="true" aria-controls="collapse${idCollapse}">
+                ${entry.title}
+              </button>
+            </h5>
+          </div>
+      
+          <div id="collapse${idCollapse}" class="collapse hide" aria-labelledby="heading${idCollapse}" data-parent="#accordion${idCollapse}">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col d-flex justify-content-center" >
+                        <p>${entry.content}</p>
+                    </div>
+                </div>
+              <div class="row">
+                  <div class="col d-flex justify-content-center">
+                      <p class="text-muted">${entry.createdAt}</p>
+                  </div>
+                  <div class="col d-flex justify-content-center">
+                      <p class="text-muted">${entry.userID}</p>   
+                  </div>                
+              </div>
+  
+              <div id="postComment${entry.entryID}"></div>
+              
+              <div id="commentList${entry.entryID}"></div>
+  
+            </div>
+          </div>
+        </div>
+      </div>`;
+      }
+
     })
 
     showEntries.innerHTML = markup;
