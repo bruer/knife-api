@@ -206,11 +206,11 @@ function showAllEntries() {
                         <p>${entry.content}</p>
                     </div>
                 </div>
-              <div class="row" id="updateEntryForm${id}">
+              <div class="row">
                 <div class="col d-flex justify-content-center">
-                  <form>
+                  <form id="updateEntryForm${id}">
                     <div class="form-group">
-                    <input type="text" class="form-control" placeholder="New content here..."> 
+                    <input type="text" class="form-control" placeholder="New content here..." name="content"> 
                     </div>
                     <button type="submit" class="btn btn-primary btn-sm">Post edit</button>  
                     <button class="btn btn-secondary btn-sm">Cancel</button>     
@@ -333,7 +333,10 @@ function updateEntry(id) {
 
   form.addEventListener('submit', e => {
     e.preventDefault();
-    const formData = new formData(form);
+    const formData = new FormData(form);
+
+    console.log(formData);
+    formData.forEach((a, b) => { console.log(a) });
 
     const object = {};
     formData.forEach((value, key) =>

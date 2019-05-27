@@ -23,15 +23,16 @@ class Entry extends Mapper {
     }
 
     public function updateEntry($entryID, $content){
-      $statement = $this->db->prepare("UPDATE entries
-      SET content = :content
-      WHERE entryID = :entryID}");
+      $statement = $this->db->prepare(
+        "UPDATE entries
+        SET content = :content
+        WHERE entryID = :entryID"
+      );
 
       $statement->execute([
         ':entryID' => $entryID,
         ':content' => $content
-    ]);
-
+      ]);
     }
 
     public function getEntriesFrom($user, $quantity){

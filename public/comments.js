@@ -170,24 +170,6 @@ function showComments2(id) {
   })
   .then(comments => 
     {
-
-      // fetch('/api/ping', 
-      // {
-      //   method: 'GET'
-      // })
-      // .then(response => 
-      //   {
-      //     console.log(response);
-      //     if(!response.ok)
-      //     {
-      //       return Error(response.statusText);
-      //     }
-      //   })
-      //   .catch(error => 
-      //     {
-      //       console.error(error)
-      //     });
-      
       let loggedin = true;
       
       if(loggedin)
@@ -238,7 +220,7 @@ function commentFeatures(id) {
     </a>
     <div id='commentBox${id}' class='hidden'>
      <form id='editCommentForm${id}'>
-       <textarea name='content'></textarea>
+       <textarea name='content'></textarea><br>
        <button type='submit'>
           Post edit
        </button>
