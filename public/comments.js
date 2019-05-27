@@ -151,6 +151,49 @@ function showComments(id) {
     });
 }
 
+function showComments2(id) {
+  const commentList = document.querySelector(`#commentList${id}`);
+  fetch(`/api/entry/${id}/comments`, 
+  {
+    method: 'GET'
+  })
+  .then(response => 
+    {
+    if(!response.ok)
+    {
+      return Error(response.statusText);
+    } 
+    else 
+    {
+      return response.json();
+    }
+  })
+  .then(comments => 
+    {
+    let markup = '';
+    comments.forEach(comment => 
+      {
+      markup += `
+        <div id='comment${comment.commentID}' class='comment-box'>
+          <p>${comment.content}</p>
+          <p>${comment.createdAt}</p>
+        </div>
+        `;
+        // markup += buildComment(comment.commentID, comment.content, comment.createdAt);
+    });
+    commentList.innerHTML = markup;
+    comments.forEach(comment => 
+      {
+        // bindDeleteCommentEvents(comment.commentID);
+        // bindUpdateCommentEvents(comment.commentID);
+      });
+  })
+  .catch(error => 
+    {
+      console.error(error)
+    });
+}
+
 function commentFeatures(id) {
   return `
     <a href='javascript:show(${id})'>

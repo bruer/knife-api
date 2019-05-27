@@ -210,13 +210,13 @@ function showAllEntries() {
     entries.forEach(entry => {
 
       // Visa formulär för att posta kommentar
-      showPostComment(entry.entryID);
+      // showPostComment(entry.entryID);
 
       // Visa inläggets kommentarer
-      showComments(entry.entryID);
+      showComments2(entry.entryID);
 
       // Event för att skriva ny kommentar
-      bindPostCommentEvents(entry.entryID);
+      // bindPostCommentEvents(entry.entryID);
 
     });
     
