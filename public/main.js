@@ -38,14 +38,17 @@
     });
   }
 
-
+//ping för att kunna visa olika saker beroende på om man är inloggad eller ej.  
+let ping = '';
 function checkIfLoggedIn(){
   fetch('/api/ping')
     .then(response => {
       if (response.ok) {
         renderView(views.loggedin)
+        ping = true;
       } else {
         renderView(views.login)
+        ping = false;
       }
     })
 }
@@ -178,14 +181,12 @@ function showAllEntries() {
 
     let markup = '';
     let idCollapse = 0;
-    //test variabeln simulerar en variabel för att kolla om man är inloggad eller ej
-    //om man är inloggad ska man få med deleteEntry annars inte
-    let test = true;
+
     entries.forEach(entry => {
       let id = entry.entryID;
 
       idCollapse++;
-      if (test == false ) {
+      if (ping == true ) {
          
         markup += `    <div id="accordion${idCollapse}" class="mb-2 justify-content-center w-500">
         <div class="card d-flex w-100">
@@ -212,7 +213,7 @@ function showAllEntries() {
                       <p class="text-muted">${entry.userID}</p>   
                   </div>
                   <div class="col d-flex justify-content-center">
-                    <button type="button" class="btn btn-danger btn-sm" id="deleteBtn${id}">Delete entry</button>   
+                    <button class="btn btn-danger btn-sm" id="deleteBtn${id}">Delete entry</button>   
                   </div>                
               </div>
   
@@ -268,7 +269,7 @@ function showAllEntries() {
     // Hämta entryID för varje inlägg
     entries.forEach(entry => {
       // radera entries
-      deleteEntry(entry.entryID)
+      deleteEntry(entry.entryID);
 
       // Visa formulär för att posta kommentar
       showPostComment(entry.entryID);
@@ -290,21 +291,23 @@ function showAllEntries() {
 //radera entry
 function deleteEntry(id) {
   const btn = document.querySelector(`#deleteBtn${id}`);
-  btn.addEventListener('click', () => {
-  fetch(`api/entry/${id}`, {
-
-    method: 'DELETE'
-
-  }).then(response => {
-    console.log(response);
-    if(!response.ok) {
-      return Error(response.statusText);
-    }
-  }).catch(error => 
-    {
-      console.error(error);
+  if (ping == true) {
+    btn.addEventListener('click', () => {
+    fetch(`api/entry/${id}`, {
+  
+      method: 'DELETE'
+  
+    }).then(response => {
+      console.log(response);
+      if(!response.ok) {
+        return Error(response.statusText);
+      }
+    }).catch(error => 
+      {
+        console.error(error);
+      });
     });
-  });
+  }
 }; 
 
 //Visa alla användare på sidan
