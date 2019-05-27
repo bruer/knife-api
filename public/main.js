@@ -206,12 +206,26 @@ function showAllEntries() {
                         <p>${entry.content}</p>
                     </div>
                 </div>
+              <div class="row" id="updateEntryForm${id}">
+                <div class="col d-flex justify-content-center">
+                  <form>
+                    <div class="form-group">
+                    <input type="text" class="form-control" placeholder="New content here..."> 
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-sm">Post edit</button>  
+                    <button class="btn btn-secondary btn-sm">Cancel</button>     
+                  </form>
+                </div>
+              </div>
               <div class="row">
                   <div class="col d-flex justify-content-center">
                       <p class="text-muted">${entry.createdAt}</p>
                   </div>
                   <div class="col d-flex justify-content-center">
                       <p class="text-muted">${entry.userID}</p>   
+                  </div>
+                  <div class="col d-flex justify-content-center">
+                    <button class="btn btn-secondary btn-sm" id="updateBtn${id}">update entry</button>   
                   </div>
                   <div class="col d-flex justify-content-center">
                     <button class="btn btn-danger btn-sm" id="deleteBtn${id}">Delete entry</button>   
@@ -272,6 +286,12 @@ function showAllEntries() {
       // radera entries
       deleteEntry(entry.entryID);
 
+      //updatera entries
+      updateEntry(entry.entryID);
+
+      // Visa formulär för att posta kommentar
+      showPostComment(entry.entryID);
+
       // Visa inläggets kommentarer
       showComments2(entry.entryID);
 
@@ -306,6 +326,44 @@ function deleteEntry(id) {
     });
   }
 }; 
+
+//updatera entry
+function updateEntry(id) {
+  const form = document.querySelector(`#updateEntryForm${id}`);
+
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    const formData = new formData(form);
+
+    const object = {};
+    formData.forEach((value, key) =>
+    {
+      object[key] = value;
+    });
+
+    fetch(`/api/entry/${id}`,
+     {
+      method: 'PUT',
+      body: JSON.stringify(object),
+      headers: 
+      {
+        'Content-Type': 'application/json'
+      }
+    }).then(response=> {
+      if(!response.ok)
+      {
+        return Error(response.statusText)
+      } 
+      else 
+      {
+        form.reset();
+      }
+    }).catch(error => 
+      {
+        console.error(error)
+      });
+  });
+}
 
 //Visa alla användare på sidan
 

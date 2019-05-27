@@ -56,16 +56,14 @@ return function ($app) {
   });
 
   //Put request för att ändra ett entry
-  $app->put('/api/entry/{entryID}/{content}', function($request, $response, $args){
+  $app->put('/api/entry/{entryID}', function($request, $response, $args){
     $entry = new Entry($this->db);
     $entryID = $args['entryID'];
-    $content = $args['content'];
-    
-    if ($entry->updateEntry($entryID, $content)) {
-      return $response->withJson(['success'=>TRUE]);
-    } else {
-      return $response->withJson(['success'=>FALSE]);
-    }
+    $data = $request->getParsedBody();
+
+    $entry->update($entryID, $data['content']);
+
+    return $response->withJson($data);
   });
 }
 ?>
