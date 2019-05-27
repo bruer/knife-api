@@ -2,7 +2,7 @@
     login: ['#loginFormTemplate', '#entriesTemplate'],
     loginfailed: ['#loginFormTemplate', '#loginFailed', '#entriesTemplate'],
     registrer: ['#registerFormTemplate', '#entriesTemplate' ],
-    loggedin: ['#entriesTemplate', '#usersTemplate', '#newPostFormTemplate', '#logout']
+    loggedin: ['#logout', '#newPostFormTemplate', '#entriesTemplate', '#usersTemplate']
     
   }
   
@@ -18,7 +18,7 @@
       
       // 4. Skapa en div 
       const div = document.createElement('div');
-      div.setAttribute('class', 'row justify-content-center');
+      div.setAttribute('class', 'row');
       
       // 4.2 Fyll diven med innehåll
       div.innerHTML = templateMarkup;
@@ -204,7 +204,7 @@ function showAllEntries() {
           <div id="collapse${idCollapse}" class="collapse hide" aria-labelledby="heading${idCollapse}" data-parent="#accordion${idCollapse}">
             <div class="card-body">
                 <div class="row">
-                    <div class="col d-flex justify-content-center" >
+                    <div class="col d-flex justify-content-center mb-4" >
                         <p>${entry.content}</p>
                     </div>
                 </div>
