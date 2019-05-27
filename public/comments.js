@@ -170,23 +170,56 @@ function showComments2(id) {
   })
   .then(comments => 
     {
-    let markup = '';
-    comments.forEach(comment => 
+
+      // fetch('/api/ping', 
+      // {
+      //   method: 'GET'
+      // })
+      // .then(response => 
+      //   {
+      //     console.log(response);
+      //     if(!response.ok)
+      //     {
+      //       return Error(response.statusText);
+      //     }
+      //   })
+      //   .catch(error => 
+      //     {
+      //       console.error(error)
+      //     });
+      
+      let loggedin = true;
+      
+      if(loggedin)
       {
-      markup += `
-        <div id='comment${comment.commentID}' class='comment-box'>
-          <p>${comment.content}</p>
-          <p>${comment.createdAt}</p>
-        </div>
-        `;
-        // markup += buildComment(comment.commentID, comment.content, comment.createdAt);
+        showPostComment(id);
+        bindPostCommentEvents(id);
+      }
+      let markup = '';
+      comments.forEach(comment => 
+        {
+          markup += `
+            <div id='comment${comment.commentID}' class='comment-box'>
+              <p>${comment.content}</p>
+              <p>${comment.createdAt}</p>
+            </div>
+          `;
+          if(loggedin)
+          {
+            markup += commentFeatures(comment.commentID);
+          }
     });
+
     commentList.innerHTML = markup;
-    comments.forEach(comment => 
-      {
-        // bindDeleteCommentEvents(comment.commentID);
-        // bindUpdateCommentEvents(comment.commentID);
-      });
+
+    if(loggedin)
+    {
+      comments.forEach(comment => 
+        {
+          bindDeleteCommentEvents(comment.commentID);
+          bindUpdateCommentEvents(comment.commentID);
+        });
+    }
   })
   .catch(error => 
     {

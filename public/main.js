@@ -209,16 +209,12 @@ function showAllEntries() {
     // Hämta entryID för varje inlägg
     entries.forEach(entry => {
 
-      // Visa formulär för att posta kommentar
-      // showPostComment(entry.entryID);
-
       // Visa inläggets kommentarer
       showComments2(entry.entryID);
 
-      // Event för att skriva ny kommentar
-      // bindPostCommentEvents(entry.entryID);
-
     });
+
+    // showComments2(1);
     
   })
   .catch(error => {

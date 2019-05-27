@@ -73,7 +73,8 @@ class Comment extends Mapper {
     function getAllFromEntry($entryID) {
         $statement = $this->db->prepare(
             "SELECT * FROM comments 
-            WHERE comments.entryID = {$entryID}"
+            WHERE entryID = {$entryID}
+            ORDER BY createdAt DESC"
         );
         $statement->execute();
         
