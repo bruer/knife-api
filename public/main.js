@@ -1,7 +1,8 @@
   const views = {
     login: ['#loginFormTemplate', '#entriesTemplate'],
     registrer: ['#registerFormTemplate', '#entriesTemplate' ],
-    loggedin: ['#entriesTemplate', '#usersTemplate', '#newPostFormTemplate', '#logout'] 
+    loggedin: ['#entriesTemplate', '#usersTemplate', '#newPostFormTemplate', '#logout'],
+    loginfailed: ['#loginFormTemplate', '#loginFailed', '#entriesTemplate']
   }
   
   function renderView(view) {
@@ -117,14 +118,14 @@ function bindLoginEvents() {
       body: formData
     })
     .then(response => {
+      console.log(response.json());
       if(!response.ok){
+        renderView(views.loginfailed);
         return Error(response.statusText)
       } else {
-        return response.json();
+        // return response.json();
+        renderView(views.loggedin);
       }
-    })
-    .then(data => {
-      renderView(views.loggedin);
     })
     .catch(error => {
       console.error(error)
@@ -292,12 +293,11 @@ function showAllEntries() {
       showPostComment(entry.entryID);
 
       // Visa inläggets kommentarer
-      showComments(entry.entryID);
-
-      // Event för att skriva ny kommentar
-      bindPostCommentEvents(entry.entryID);
+      showComments2(entry.entryID);
 
     });
+
+    // showComments2(1);
     
   })
   .catch(error => {
@@ -404,8 +404,6 @@ function bindLogoutEvents() {
   
   logoutBtn.addEventListener('click', e =>{
     e.preventDefault();
-
-    console.log('Log out?');
   
     fetch('/api/logout').then(() =>
       renderView(views.login)

@@ -30,3 +30,7 @@ h1 {
 .hidden {
   display: none;
 }
+
+.login-failed{
+  color: red;
+}

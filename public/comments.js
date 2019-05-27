@@ -151,6 +151,105 @@ function showComments(id) {
     });
 }
 
+function showComments2(id) {
+  const commentList = document.querySelector(`#commentList${id}`);
+  fetch(`/api/entry/${id}/comments`, 
+  {
+    method: 'GET'
+  })
+  .then(response => 
+    {
+    if(!response.ok)
+    {
+      return Error(response.statusText);
+    } 
+    else 
+    {
+      return response.json();
+    }
+  })
+  .then(comments => 
+    {
+
+      // fetch('/api/ping', 
+      // {
+      //   method: 'GET'
+      // })
+      // .then(response => 
+      //   {
+      //     console.log(response);
+      //     if(!response.ok)
+      //     {
+      //       return Error(response.statusText);
+      //     }
+      //   })
+      //   .catch(error => 
+      //     {
+      //       console.error(error)
+      //     });
+      
+      let loggedin = true;
+      
+      if(loggedin)
+      {
+        showPostComment(id);
+        bindPostCommentEvents(id);
+      }
+      let markup = '';
+      comments.forEach(comment => 
+        {
+          markup += `
+            <div id='comment${comment.commentID}' class='comment-box'>
+              <p>${comment.content}</p>
+              <p>${comment.createdAt}</p>
+            </div>
+          `;
+          if(loggedin)
+          {
+            markup += commentFeatures(comment.commentID);
+          }
+    });
+
+    commentList.innerHTML = markup;
+
+    if(loggedin)
+    {
+      comments.forEach(comment => 
+        {
+          bindDeleteCommentEvents(comment.commentID);
+          bindUpdateCommentEvents(comment.commentID);
+        });
+    }
+  })
+  .catch(error => 
+    {
+      console.error(error)
+    });
+}
+
+function commentFeatures(id) {
+  return `
+    <a href='javascript:show(${id})'>
+      Edit
+    </a>
+    <a href='http://localhost:8000/'
+      id='deleteCommentBtn${id}'>
+      Delete
+    </a>
+    <div id='commentBox${id}' class='hidden'>
+     <form id='editCommentForm${id}'>
+       <textarea name='content'></textarea>
+       <button type='submit'>
+          Post edit
+       </button>
+       <a href='javascript:hide(${id})'>
+          Cancel
+       </a>
+     </form>
+    </div>
+  `;
+}
+
 function showPostComment(id) {
   const postComment = document.querySelector(`#postComment${id}`);
   postComment.innerHTML = `
