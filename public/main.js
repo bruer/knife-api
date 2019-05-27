@@ -208,11 +208,11 @@ function showAllEntries() {
                         <p>${entry.content}</p>
                     </div>
                 </div>
-              <div class="row hidden" id="updateEntryForm${id}">
+              <div class="row">
                 <div class="col d-flex justify-content-center">
-                  <form>
+                  <form id="updateEntryForm${id}" class="hidden">
                     <div class="form-group">
-                    <input type="text" class="form-control" placeholder="New content here..."> 
+                    <input type="text" class="form-control" placeholder="New content here..." name="content"> 
                     </div>
                     <button type="submit" class="btn btn-primary btn-sm">Post edit</button>  
                     <a href="javascript:hideUpdateForm(${id})" class="btn btn-secondary btn-sm">Cancel</a>     
@@ -339,6 +339,9 @@ function updateEntry(id) {
   form.addEventListener('submit', e => {
     e.preventDefault();
     const formData = new FormData(form);
+
+    console.log(formData);
+    formData.forEach((a, b) => { console.log(a) });
 
     const object = {};
     formData.forEach((value, key) =>

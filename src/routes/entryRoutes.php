@@ -63,7 +63,7 @@ return function ($app) {
 
     $entry->updateEntry($entryID, $data['content']);
 
-    return $response->withJson($data);
+    return $response->withJson($data['content']);
   });
 
 }
