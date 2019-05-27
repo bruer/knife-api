@@ -191,7 +191,8 @@ function showAllEntries() {
       idCollapse++;
       if (ping == true ) {
          
-        markup += `    <div id="accordion${idCollapse}" class="mb-2 justify-content-center w-500">
+        markup += `
+      <div id="accordion${idCollapse}" class="mb-2 justify-content-center w-500">
         <div class="card d-flex w-100">
           <div class="card-header" id="heading${idCollapse}">
             <h5 class="mb-0 d-flex justify-content-center">
@@ -201,10 +202,10 @@ function showAllEntries() {
             </h5>
           </div>
       
-          <div id="collapse${idCollapse}" class="collapse hide" aria-labelledby="heading${idCollapse}" data-parent="#accordion${idCollapse}">
+          <div id="collapse${idCollapse}" class="collapse show" aria-labelledby="heading${idCollapse}" data-parent="#accordion${idCollapse}">
             <div class="card-body">
                 <div class="row">
-                    <div class="col d-flex justify-content-center mb-4" >
+                    <div class="col d-flex justify-content-center mb-4">
                         <p>${entry.content}</p>
                     </div>
                 </div>
@@ -233,11 +234,24 @@ function showAllEntries() {
                     <button class="btn btn-danger btn-sm" id="deleteBtn${id}">Delete entry</button>   
                   </div>                
               </div>
-  
-              <div id="postComment${entry.entryID}"></div>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header" id="headingThree">
+            <h5 class="mb-0">
+              <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapse${idCollapse}" aria-expanded="false" aria-controls="collapseThree">
+                Comments
+              </button>
+            </h5>
+          </div>
+          <div id="collapse${idCollapse}" class="collapse" aria-labelledby="headingThree" data-parent="#accordion${idCollapse}">
+            <div class="card-body">
               
-              <div id="commentList${entry.entryID}"></div>
-  
+            <div id="postComment${entry.entryID}"></div>
+              
+            <div id="commentList${entry.entryID}"></div>
+
             </div>
           </div>
         </div>
