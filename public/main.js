@@ -1,8 +1,9 @@
   const views = {
     login: ['#loginFormTemplate', '#entriesTemplate'],
+    loginfailed: ['#loginFormTemplate', '#loginFailed', '#entriesTemplate'],
     registrer: ['#registerFormTemplate', '#entriesTemplate' ],
-    loggedin: ['#entriesTemplate', '#usersTemplate', '#newPostFormTemplate', '#logout'],
-    loginfailed: ['#loginFormTemplate', '#loginFailed', '#entriesTemplate']
+    loggedin: ['#entriesTemplate', '#usersTemplate', '#newPostFormTemplate', '#logout']
+    
   }
   
   function renderView(view) {
@@ -154,7 +155,9 @@ function bindNewPostEvents() {
         newPostForm.reset()
         return response.json()
       }
-    }).catch(error => {
+    })
+    .then(renderView(views.loggedin))
+    .catch(error => {
       console.error(error)
     })
   })
@@ -174,7 +177,6 @@ function showAllEntries() {
       console.log(response);
       return Error(response.statusText)
     } else {
-
       return response.json()
     }
   })
@@ -299,7 +301,9 @@ function deleteEntry(id) {
       if(!response.ok) {
         return Error(response.statusText);
       }
-    }).catch(error => 
+    })
+    .then(renderView(views.loggedin))
+    .catch(error => 
       {
         console.error(error);
       });
