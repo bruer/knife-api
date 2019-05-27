@@ -65,5 +65,6 @@ return function ($app) {
 
     return $response->withJson($data['content']);
   });
+
 }
 ?>
