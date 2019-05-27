@@ -38,10 +38,21 @@
     });
   }
 
-renderView(views.login)
 
-// visa regForm
+function checkIfLoggedIn(){
+  fetch('/api/ping')
+    .then(response => {
+      if (response.ok) {
+        renderView(views.loggedin)
+      } else {
+        renderView(views.login)
+      }
+    })
+}
 
+checkIfLoggedIn()
+ 
+// Visa regForm
 function bindRegisterFormEvents() {
   const regBtn = document.querySelector('.registerBtn')
 
@@ -335,6 +346,8 @@ function bindLogoutEvents() {
   
   logoutBtn.addEventListener('click', e =>{
     e.preventDefault();
+
+    console.log('Log out?');
   
     fetch('/api/logout').then(() =>
       renderView(views.login)
