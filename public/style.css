@@ -18,7 +18,29 @@ h1 {
 #entryList {
   margin-bottom: 100px;
 }
+.header-box{
+  height: 10em;
+  position: relative
+}
 
+/* Header */
+.header-box h1{
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%)
+}
+.header-box p{
+  margin: 0;
+  position: absolute;
+  top: 73%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%)
+
+}
 /* KOMMENTARER */
 
 .comment-box {
@@ -33,4 +55,21 @@ h1 {
 
 .login-failed{
   color: red;
+  margin-bottom: 30px;
+}
+
+
+/* Userlist */
+
+.user-list-box{
+  border: solid 1px black;
+  border-radius: 10px;
+  text-align: center;
+  padding: 20px;
+}
+
+.usersList{
+  padding: 0;
+  list-style: none;
+  text-align: left;
 }
