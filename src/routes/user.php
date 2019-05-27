@@ -33,4 +33,13 @@ return function ($app) {
     $userID = $args['id'];
     $user->deleteUser($userID);
   });
+
+  $app->post('/api/user/{id}', function ($request, $response) {
+    $user = new User($this->db);
+    $data = $request->getParsedBody();
+    $response->withJson($user->registerUser(
+      $data['username'], $data['password']
+    ));
+    return $response->withJson($data);
+  });
 };

@@ -114,14 +114,16 @@ function bindLoginEvents() {
       body: formData
     })
     .then(response => {
+      console.log(response.json());
       if(!response.ok){
         return Error(response.statusText)
       } else {
-        return response.json();
+        // return response.json();
+        renderView(views.loggedin);
       }
     })
     .then(data => {
-      renderView(views.loggedin);
+      // renderView(views.loggedin);
     })
     .catch(error => {
       console.error(error)

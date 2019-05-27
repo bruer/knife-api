@@ -45,5 +45,13 @@ class User extends Mapper {
     $statement->execute([
         ':userID' => $userID
     ]);
-}
+  }
+
+  public function getUserByName($username) {
+    $statement = $this->db->prepare("SELECT * FROM users WHERE username = :username");
+    $statement->execute([
+      ':username' => $username
+    ]);
+    return $statement->fetch(PDO::FETCH_ASSOC);
+  }
 }
