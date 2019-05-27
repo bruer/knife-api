@@ -151,6 +151,29 @@ function showComments(id) {
     });
 }
 
+function commentFeatures(id) {
+  return `
+    <a href='javascript:show(${id})'>
+      Edit
+    </a>
+    <a href='http://localhost:8000/'
+      id='deleteCommentBtn${id}'>
+      Delete
+    </a>
+    <div id='commentBox${id}' class='hidden'>
+     <form id='editCommentForm${id}'>
+       <textarea name='content'></textarea>
+       <button type='submit'>
+          Post edit
+       </button>
+       <a href='javascript:hide(${id})'>
+          Cancel
+       </a>
+     </form>
+    </div>
+  `;
+}
+
 function showPostComment(id) {
   const postComment = document.querySelector(`#postComment${id}`);
   postComment.innerHTML = `
