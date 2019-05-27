@@ -2,6 +2,11 @@
 
 class User extends Mapper {
 
+  // Identifiera användare 
+  // Kolla så att användare och lösen stämmer
+  // Hämta dens inlägg 
+  
+
 
   // Hämtar specifik användare
   public function getUserByID($userID) {
