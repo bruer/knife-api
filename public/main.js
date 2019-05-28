@@ -341,6 +341,7 @@ function showAllMyEntriesLoggedIn() {
 
       idCollapse++;
       markup += `
+      
       <div id="accordion${idCollapse}" class="mb-2 justify-content-center w-500">
         <div class="card d-flex w-100">
           <div class="card-header" id="heading${idCollapse}">
@@ -374,7 +375,7 @@ function showAllMyEntriesLoggedIn() {
                       <p class="text-muted">${entry.createdAt}</p>
                   </div>
                   <div class="col d-flex justify-content-center">
-                      <p class="text-muted">${entry.userID}</p>   
+                      <p class="text-muted">Written me</p>   
                   </div>
                   <div class="col d-flex justify-content-center">
                     <a href="javascript:showUpdateForm(${id})" class="btn btn-secondary btn-sm" id="updateBtn${id}">update entry</a>   
@@ -459,9 +460,7 @@ function showAllEntriesLoggedIn() {
       let id = entry.entryID;
 
       idCollapse++;
-      markup += `
-
-      <div id="accordion${idCollapse}" class="mb-2 justify-content-center w-500">
+      markup += `<div id="accordion${idCollapse}" class="mb-2 justify-content-center w-500">
         <div class="card d-flex w-100">
           <div class="card-header" id="heading${idCollapse}">
             <h5 class="mb-0 d-flex justify-content-center">

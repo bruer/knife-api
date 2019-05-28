@@ -12,7 +12,7 @@ class Entry extends Mapper {
     $statement = $this->db->prepare("SELECT * FROM entries WHERE userID = :userID");
  
     $statement->execute([
-      'userID' => $_SESSION["userID"]
+      'userID' => $_SESSION['userID']
     ]);
     return $statement->fetchAll(PDO::FETCH_ASSOC);
   }
