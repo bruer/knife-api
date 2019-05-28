@@ -28,8 +28,14 @@ return function ($app) {
   });
 
   // Add a ping route
-  $app->get('/api/ping', function ($request, $response, $args) {
+  $app->get('/api/ping', function ($request, $response) {
     return $response->withJson(['loggedIn' => true]);
   })->add($auth);
-};
 
+  $app->get('/api/session_user', function ($request, $response) {
+    return $response->withJson([
+      'username' => $_SESSION['username'],
+      'userID' => $_SESSION['userID']
+    ]);
+  })->add($auth);
+};

@@ -41,21 +41,38 @@
   }
 
 //ping för att kunna visa olika saker beroende på om man är inloggad eller ej.  
-let ping = '';
+let ping = false;
 function checkIfLoggedIn(){
   fetch('/api/ping')
     .then(response => {
+      // console.log(response.json());
       if (response.ok) {
-        renderView(views.loggedin)
         ping = true;
+        renderView(views.loggedin)
       } else {
-        renderView(views.login)
         ping = false;
+        renderView(views.login)
       }
     })
 }
 
 checkIfLoggedIn()
+ 
+function getLoggedInUser() {
+  fetch('/api/session_user')
+    .then(response => {
+      // console.log(response.json());
+      if(response.ok) {
+        return response.json();
+      }
+    })
+    .then(data => {
+      console.log(data);
+      // data.forEach(d => {
+      //   console.log(d);
+      // })
+    })
+}
  
 // Visa regForm
 function bindRegisterFormEvents() {
@@ -290,16 +307,10 @@ function showAllEntries() {
       //updatera entries
       // updateEntry(entry.entryID);
 
-      // Visa formulär för att posta kommentar
-      showPostComment(entry.entryID);
-
       // Visa inläggets kommentarer
       showComments2(entry.entryID);
 
     });
-
-    // showComments2(1);
-    
   })
   .catch(error => {
     console.error(error)
@@ -420,13 +431,11 @@ function bindLogoutEvents() {
   logoutBtn.addEventListener('click', e =>{
     e.preventDefault();
   
-    fetch('/api/logout').then(() =>
+    fetch('/api/logout').then(() => {
       renderView(views.login)
-    )
+    })
     .catch(error => {
       console.error(error)
     });
-  
-
   })
 }

@@ -26,7 +26,9 @@ return function ($app) {
     $entryID = $args['id'];
     $data = $request->getParsedBody();
 
-    $comment->post($entryID, $data['content']);
+    $comment->post($entryID, $data['content'], $_SESSION['userID']);
+
+    echo $_SESSION['userID'];
     
     return $response->withJson($data);
   });

@@ -11,7 +11,6 @@ function bindPostCommentEvents(id) {
     })
     .then(response => 
       {
-      console.log(response.json());
       if(!response.ok)
       {
         return Error(response.statusText);
@@ -33,7 +32,6 @@ function bindDeleteCommentEvents(id) {
   const btn = document.querySelector(`#deleteCommentBtn${id}`);
   btn.addEventListener('click', () => 
   {
-    console.log(id);
     fetch(`/api/comment/${id}`, 
     {
       method: 'DELETE'
@@ -177,8 +175,10 @@ function showComments2(id) {
   .then(comments => 
     {
       let loggedin = true;
+
+      console.log(ping);
       
-      if(loggedin)
+      if(ping)
       {
         showPostComment(id);
         bindPostCommentEvents(id);
@@ -190,9 +190,10 @@ function showComments2(id) {
             <div id='comment${comment.commentID}' class='comment-box'>
               <p>${comment.content}</p>
               <p>${comment.createdAt}</p>
+              <p>${comment.createdBy}</p>
             </div>
           `;
-          if(loggedin)
+          if(ping)
           {
             markup += commentFeatures(comment.commentID);
           }
@@ -200,7 +201,7 @@ function showComments2(id) {
 
     commentList.innerHTML = markup;
 
-    if(loggedin)
+    if(ping)
     {
       comments.forEach(comment => 
         {

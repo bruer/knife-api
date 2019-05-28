@@ -24,7 +24,7 @@ class Comment extends Mapper {
     //     ]);
     // }
 
-    public function post($entryID, $content) {
+    public function post($entryID, $content, $createdBy) {
         $statement = $this->db->prepare(
             "INSERT INTO comments (entryID, content, createdBy, createdAt)
             VALUES (:entryID, :content, :createdBy, NOW())"
@@ -33,7 +33,7 @@ class Comment extends Mapper {
         $statement->execute([
             ':entryID' => $entryID,
             ':content' => $content,
-            ':createdBy' => 1
+            ':createdBy' => $createdBy
         ]);
     }
 
