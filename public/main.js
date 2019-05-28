@@ -344,6 +344,7 @@ function showAllMyEntriesLoggedIn() {
 
       idCollapse++;
       markup += `
+      
       <div id="accordion${idCollapse}" class="mb-2 justify-content-center w-500">
         <div class="card d-flex w-100">
           <div class="card-header" id="heading${idCollapse}">
@@ -462,9 +463,7 @@ function showAllEntriesLoggedIn() {
       let id = entry.entryID;
 
       idCollapse++;
-      markup += `
-
-      <div id="accordion${idCollapse}" class="mb-2 justify-content-center w-500">
+      markup += `<div id="accordion${idCollapse}" class="mb-2 justify-content-center w-500">
         <div class="card d-flex w-100">
           <div class="card-header" id="heading${idCollapse}">
             <h5 class="mb-0 d-flex justify-content-center">

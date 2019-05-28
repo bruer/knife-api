@@ -15,7 +15,7 @@ return function ($app) {
     $app->get('/api/myentries', function($request, $response, $args){
       $entries = new Entry($this->db);
       
-      return $response->withJson($entries->getAllMyEntries($userID));
+      return $response->withJson($entries->getAllMyEntries());
     });
   
   //GET request för att hämta de senaste X antal entries från en speficik användare,
