@@ -377,7 +377,7 @@ function showAllMyEntriesLoggedIn() {
                       <p class="text-muted">${entry.createdAt}</p>
                   </div>
                   <div class="col d-flex justify-content-center">
-                      <p class="text-muted">${entry.userID}</p>   
+                      <p class="text-muted">Written me</p>   
                   </div>
                   <div class="col d-flex justify-content-center">
                     <a href="javascript:showUpdateForm(${id})" class="btn btn-secondary btn-sm" id="updateBtn${id}">update entry</a>   
