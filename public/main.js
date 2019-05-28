@@ -211,7 +211,7 @@ function showAllEntries() {
         <div class="card d-flex w-100">
           <div class="card-header" id="heading${idCollapse}">
             <h5 class="mb-0 d-flex justify-content-center">
-              <button class="btn btn-link" data-toggle="collapse" data-target="#collapse${idCollapse}" aria-expanded="true" aria-controls="collapse${idCollapse}">
+              <button class="btn btn-link text-warning" data-toggle="collapse" data-target="#collapse${idCollapse}" aria-expanded="true" aria-controls="collapse${idCollapse}">
                 ${entry.title}
               </button>
             </h5>
@@ -230,7 +230,7 @@ function showAllEntries() {
                     <div class="form-group">
                     <input type="text" class="form-control" placeholder="New content here..." name="content"> 
                     </div>
-                    <button type="submit" class="btn btn-primary btn-sm">Post edit</button>  
+                    <button type="submit" class="btn btn-success btn-sm">Post edit</button>  
                     <a href="javascript:hideUpdateForm(${id})" class="btn btn-secondary btn-sm">Cancel</a>     
                   </form>
                 </div>
@@ -255,7 +255,7 @@ function showAllEntries() {
         <div class="card">
           <div class="card-header" id="headingThree">
             <h5 class="mb-0">
-              <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapse${idCollapse}" aria-expanded="false" aria-controls="collapseThree">
+              <button class="btn btn-link text-warning collapsed" data-toggle="collapse" data-target="#collapse${idCollapse}" aria-expanded="false" aria-controls="collapseThree">
                 Comments
               </button>
             </h5>
@@ -283,13 +283,13 @@ function showAllEntries() {
         <div class="card d-flex w-100">
           <div class="card-header" id="heading${idCollapse}">
             <h5 class="mb-0 d-flex justify-content-center">
-              <button class="btn btn-link" data-toggle="collapse" data-target="#collapse${idCollapse}" aria-expanded="true" aria-controls="collapse${idCollapse}">
+              <button class="btn btn-link text-warning" data-toggle="collapse" data-target="#collapse${idCollapse}" aria-expanded="true" aria-controls="collapse${idCollapse}">
                 ${entry.title}
               </button>
             </h5>
           </div>
       
-          <div id="collapse${idCollapse}" class="collapse show" aria-labelledby="heading${idCollapse}" data-parent="#accordion${idCollapse}">
+          <div id="collapse${idCollapse}" class="collapse" aria-labelledby="heading${idCollapse}" data-parent="#accordion${idCollapse}">
             <div class="card-body">
                 <div class="row">
                     <div class="col d-flex justify-content-center mb-4">
@@ -302,7 +302,7 @@ function showAllEntries() {
                     <div class="form-group">
                     <input type="text" class="form-control" placeholder="New content here..." name="content"> 
                     </div>
-                    <button type="submit" class="btn btn-primary btn-sm">Post edit</button>  
+                    <button type="submit" class="btn btn-success btn-sm">Post edit</button>  
                     <a href="javascript:hideUpdateForm(${id})" class="btn btn-secondary btn-sm">Cancel</a>     
                   </form>
                 </div>
@@ -321,12 +321,12 @@ function showAllEntries() {
         <div class="card">
           <div class="card-header" id="headingThree">
             <h5 class="mb-0">
-              <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapse${idCollapse}" aria-expanded="false" aria-controls="collapseThree">
+              <button class="btn btn-link text-warning collapsed" data-toggle="collapse" data-target="#collapseTwo${idCollapse}" aria-expanded="false" aria-controls="collapseThree">
                 Comments
               </button>
             </h5>
           </div>
-          <div id="collapse${idCollapse}" class="collapse" aria-labelledby="headingThree" data-parent="#accordion${idCollapse}">
+          <div id="collapseTwo${idCollapse}" class="collapse" aria-labelledby="headingThree" data-parent="#accordion${idCollapse}">
             <div class="card-body">
               <div class="row">
                   <div class="col" id="postComment${entry.entryID}"></div>
