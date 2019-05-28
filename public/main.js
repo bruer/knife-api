@@ -478,28 +478,11 @@ function showAllEntriesLoggedIn() {
                     </div>
                 </div>
               <div class="row">
-                <div class="col d-flex justify-content-center">
-                  <form id="updateEntryForm${id}" class="hidden">
-                    <div class="form-group">
-                    <input type="text" class="form-control" placeholder="New content here..." name="content"> 
-                    </div>
-                    <button type="submit" class="btn btn-success btn-sm">Post edit</button>  
-                    <a href="javascript:hideUpdateForm(${id})" class="btn btn-secondary btn-sm">Cancel</a>     
-                  </form>
-                </div>
-              </div>
-              <div class="row">
                   <div class="col d-flex justify-content-center">
                       <p class="text-muted">${entry.createdAt}</p>
                   </div>
                   <div class="col d-flex justify-content-center">
                       <p class="text-muted">Written by ${entry.userID}</p>   
-                  </div>
-                  <div class="col d-flex justify-content-center">
-                    <a href="javascript:showUpdateForm(${id})" class="btn btn-secondary btn-sm" id="updateBtn${id}">update entry</a>   
-                  </div>
-                  <div class="col d-flex justify-content-center">
-                    <button class="btn btn-danger btn-sm" id="deleteBtn${id}">Delete entry</button>   
                   </div>                
               </div>
             </div>
@@ -536,11 +519,6 @@ function showAllEntriesLoggedIn() {
 
     // Hämta entryID för varje inlägg
     entries.forEach(entry => {
-      // radera entries
-      deleteEntry(entry.entryID);
-
-      //updatera entries
-      updateEntry(entry.entryID);
 
       // Visa inläggets kommentarer
       showCommentsLoggedIn(entry.entryID);
