@@ -95,6 +95,9 @@ function bindUpdateCommentEvents(id) {
 }
 
 function showComments(id) {
+  
+  // console.log(id);
+  
   const commentList = document.querySelector(`#commentList${id}`);
   fetch(`/api/entry/${id}/comments`, 
   {
@@ -112,42 +115,51 @@ function showComments(id) {
     }
   })
   .then(comments => 
-    {
-
-      // console.log(ping);
-      
+    {    
       if(ping)
       {
         showPostComment(id);
         bindPostCommentEvents(id);
       }
-      let markup = '';
-      comments.forEach(comment => 
-        {
-          // console.log(comment.createdBy);
-          markup += `
-          <li id="comment${comment.commentID}" class="list-group-item" >
-          <small>by user: ${comment.createdBy}</small><br>
-          ${comment.content}<br>
-          <small>${comment.createdAt}</small>
-          </li>
-          `;
-          if(ping)
-          {
-            markup += commentFeatures(comment.commentID);
-          }
-    });
 
-    commentList.innerHTML = markup;
+      fetch('/api/session_user')
+          .then(response => {
+            if(response.ok) {
+              return response.json();
+            }
+          })
+          .then(data => {
 
-    if(ping)
-    {
-      comments.forEach(comment => 
-        {
-          bindDeleteCommentEvents(comment.commentID);
-          bindUpdateCommentEvents(comment.commentID);
-        });
-    }
+            let markup = '';
+            comments.forEach(comment => 
+              {
+                console.log('comment: ' + comment.createdBy);
+                console.log('user:' + data['userID']);
+
+                markup += `
+                <li id="comment${comment.commentID}" class="list-group-item" >
+                <small>by user: ${comment.createdBy}</small><br>
+                ${comment.content}<br>
+                <small>${comment.createdAt}</small>
+                </li>
+                `;
+                if(ping && comment.createdBy == data['userID'])
+                  {
+                    markup += commentFeatures(comment.commentID);
+                  }
+              });
+              
+              commentList.innerHTML = markup;
+
+              comments.forEach(comment => 
+                {
+                  if(ping && comment.createdBy == data['userID'])
+                  {
+                    bindDeleteCommentEvents(comment.commentID);
+                    bindUpdateCommentEvents(comment.commentID);
+                  }
+                });
+          })
   })
   .catch(error => 
     {
