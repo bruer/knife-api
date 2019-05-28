@@ -3,13 +3,13 @@
 return function ($app) {
     $container = $app->getContainer();
 
-    // view renderer
+    // View renderer
     $container['renderer'] = function ($c) {
       $settings = $c->get('settings')['renderer'];
       return new \Slim\Views\PhpRenderer($settings['template_path']);
     };
 
-    // database
+    // Database
     $container['db'] = function ($c) {
       $db = $c['settings']['db'];
       $pdo = new PDO(
