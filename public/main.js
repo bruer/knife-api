@@ -543,7 +543,7 @@ function showAllEntriesLoggedIn() {
       updateEntry(entry.entryID);
 
       // Visa inläggets kommentarer
-      // showComments2(entry.entryID);
+      showCommentsLoggedIn(entry.entryID);
 
     });
   })

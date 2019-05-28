@@ -95,9 +95,7 @@ function bindUpdateCommentEvents(id) {
 }
 
 function showComments(id) {
-  
-  // console.log(id);
-  
+    
   const commentList = document.querySelector(`#commentList${id}`);
   fetch(`/api/entry/${id}/comments`, 
   {
@@ -137,8 +135,6 @@ function showComments(id) {
 }
 
 function showCommentsLoggedIn(id) {
-  
-  // console.log(id);
   
   const commentList = document.querySelector(`#commentList${id}`);
   fetch(`/api/entry/${id}/comments`, 
