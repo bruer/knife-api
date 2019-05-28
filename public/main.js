@@ -321,12 +321,12 @@ function showAllEntries() {
         <div class="card">
           <div class="card-header" id="headingThree">
             <h5 class="mb-0">
-              <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapse${idCollapse}" aria-expanded="false" aria-controls="collapseThree">
+              <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo${idCollapse}" aria-expanded="false" aria-controls="collapseThree">
                 Comments
               </button>
             </h5>
           </div>
-          <div id="collapse${idCollapse}" class="collapse" aria-labelledby="headingThree" data-parent="#accordion${idCollapse}">
+          <div id="collapseTwo${idCollapse}" class="collapse" aria-labelledby="headingThree" data-parent="#accordion${idCollapse}">
             <div class="card-body">
               <div class="row">
                   <div class="col" id="postComment${entry.entryID}"></div>
