@@ -10,6 +10,7 @@ class User extends Mapper {
     ]);
     return $statement->fetch(PDO::FETCH_ASSOC);
   }
+  
   // Hämtar alla användare
   public function getAllUsers(){
     $statement = $this->db->prepare("SELECT username FROM users");
