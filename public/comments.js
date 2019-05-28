@@ -115,7 +115,6 @@ function showComments(id) {
     {
       let loggedin = true;
 
-      console.log(ping);
       
       if(ping)
       {
