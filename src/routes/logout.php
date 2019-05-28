@@ -6,7 +6,7 @@ return function ($app) {
 
     $app->get('/api/logout', function ($request, $response) {   
       
-      // $_SESSION = array();
+      $_SESSION = array();
       session_destroy();   
       
     })->add($auth);
