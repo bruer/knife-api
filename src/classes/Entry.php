@@ -44,7 +44,7 @@ class Entry extends Mapper {
   }
 
   // Posta ett nytt inlägg
-  public function newPost($title, $content) {
+  public function newPost($title, $content, $createdBy) {
     $statement = $this->db->prepare(
       "INSERT INTO entries (title, content, createdAt, userID)
       VALUES (:title, :content, NOW(), :userID)"
@@ -52,10 +52,8 @@ class Entry extends Mapper {
     $statement->execute([
       ':title' => $title,
       ':content'=> $content,
-      ':userID'=> 1
+      ':userID'=> $createdBy
     ]);
-    $self = $_SERVER['PHP_SELF'];
-    header("Location: $self");
   }
 }
 

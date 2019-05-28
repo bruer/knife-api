@@ -59,4 +59,27 @@ main {
   padding: 0;
   list-style: none;
   text-align: left;
+
+
+/* FEED BTN */
+
+.feed-btn-style {
+  width: 80px;
+  background-color: Transparent;
+  background-repeat:no-repeat;
+  border: none;
+  cursor:pointer;
+  overflow: hidden;
+  outline:none;
+  color:  
+}
+
+.feed-btn-box{
+  margin: 0 auto;
+  padding-bottom: 30px;
+}
+
+.feed-btn-style:active {
+  outline: none;
+  border: none;
 }
