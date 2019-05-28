@@ -385,10 +385,10 @@ function showAllEntries() {
       deleteEntry(entry.entryID);
 
       //updatera entries
-      // updateEntry(entry.entryID);
+      updateEntry(entry.entryID);
 
       // Visa inläggets kommentarer
-      showComments2(entry.entryID);
+      showComments(entry.entryID);
 
     });
   })
