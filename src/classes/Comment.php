@@ -11,6 +11,7 @@ class Comment extends Mapper {
     return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    // New comment
     public function post($entryID, $content, $createdBy) {
         $statement = $this->db->prepare(
             "INSERT INTO comments (entryID, content, createdBy, createdAt)
@@ -24,6 +25,7 @@ class Comment extends Mapper {
         ]);
     }
 
+    // Update comment
     public function update($commentID, $content) {
         $statement = $this->db->prepare(
             "UPDATE comments 
@@ -36,6 +38,7 @@ class Comment extends Mapper {
         ]);
     }
 
+    // Delete comment
     public function delete($commentID) {
         $statement = $this->db->prepare(
             "DELETE FROM comments 
@@ -46,6 +49,7 @@ class Comment extends Mapper {
         ]);
     }
 
+    // Get comments
     function getAllFromEntry($entryID) {
         $statement = $this->db->prepare(
             "SELECT * FROM comments 

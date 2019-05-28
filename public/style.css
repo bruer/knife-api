@@ -32,14 +32,12 @@ main {
   left: 50%;
   margin-right: -50%;
   transform: translate(-50%, -50%)
-
 }
 
-/* KOMMENTARER */
+/* Kommentarer */
 .hidden {
   display: none;
 }
-
 .login-failed{
   color: red;
   margin-bottom: 30px;
@@ -53,16 +51,17 @@ main {
   text-align: center;
   padding: 20px;
   padding-bottom: 0;
+  position: absolute;
+  bottom: 50%;
+  left: 20px;
 }
-
 .usersList{
   padding: 0;
   list-style: none;
   text-align: left;
 }
 
-/* FEED BTN */
-
+/* Feed Button */
 .feed-btn-style {
   width: 80px;
   background-color: Transparent;
@@ -81,4 +80,11 @@ main {
 .feed-btn-style:active {
   outline: none;
   border: none;
+}
+
+/* Logout button */
+.logout-div {
+  position: fixed;
+  top: 20px;
+  right: 20px;
 }
