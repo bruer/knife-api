@@ -97,13 +97,19 @@
 
     <!-- Post new entries -->   
     <template id="newPostFormTemplate">
-    <h2>Skriv nytt inlägg</h2>
+    <div class="col mb-5">
+    <h2 class="text-center">Skriv nytt inlägg</h2>
       <form id="newPostForm">
-        <input type="text" name="title" id="newTitle" placeholder="Title"> <br>
-        <textarea name="content" id="newContent" placeholder="Write something here..">
-        </textarea> <br>
-        <button type="submit" id="newPostBtn">Post</button>
+      <div class="form-group">
+        <input type="text" name="title" id="newTitle" placeholder="Title" class="form-control">
+      </div>
+      <div class="form-group">
+        <textarea name="content" id="newContent" placeholder="Write something here.." class="form-control">
+        </textarea>
+      </div>
+        <button type="submit" id="newPostBtn" class="btn btn-primary">Post</button>
       </form>
+    </div>
     </template>
     
     <template id="entriesTemplate"> 
@@ -119,7 +125,9 @@
     </template>
 
     <template id="logout">
-        <button id="logoutBtn">Logout</button>
+        <div class="col text-right">
+            <button id="logoutBtn" class="btn btn-primary">Logout</button>
+        </div>
     </template>
 
     <template id="loginFailed">
