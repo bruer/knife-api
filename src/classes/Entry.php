@@ -2,14 +2,14 @@
 
 class Entry extends Mapper {
   public function getAllEntries() {
-    $statement = $this->db->prepare("SELECT * FROM entries");
+    $statement = $this->db->prepare("SELECT * FROM entries ORDER BY createdAt DESC LIMIT 20");
     $statement->execute();
 
     return $statement->fetchAll(PDO::FETCH_ASSOC);
   }
 
   public function getAllMyEntries() {
-    $statement = $this->db->prepare("SELECT * FROM entries WHERE userID = :userID");
+    $statement = $this->db->prepare("SELECT * FROM entries WHERE userID = :userID ORDER BY createdAt DESC");
  
     $statement->execute([
       'userID' => $_SESSION['userID']
@@ -17,9 +17,8 @@ class Entry extends Mapper {
     return $statement->fetchAll(PDO::FETCH_ASSOC);
   }
 
-
   public function getEntryID($entryID){
-    $statement = $this->db->prepare("SELECT * FROM entries WHERE entryID = {$entryID}");
+    $statement = $this->db->prepare("SELECT * FROM entries WHERE entryID = {$entryID} ORDER BY createdAt DESC");
     $statement->execute();
 
     return $statement->fetch(PDO::FETCH_ASSOC);
