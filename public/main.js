@@ -289,7 +289,7 @@ function showAllEntries() {
             </h5>
           </div>
       
-          <div id="collapse${idCollapse}" class="collapse show" aria-labelledby="heading${idCollapse}" data-parent="#accordion${idCollapse}">
+          <div id="collapse${idCollapse}" class="collapse" aria-labelledby="heading${idCollapse}" data-parent="#accordion${idCollapse}">
             <div class="card-body">
                 <div class="row">
                     <div class="col d-flex justify-content-center mb-4">
