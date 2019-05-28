@@ -2,9 +2,10 @@
     login: ['#loginFormTemplate', '#entriesTemplate'],
     loginfailed: ['#loginFormTemplate', '#loginFailed', '#entriesTemplate'],
     registrer: ['#registerFormTemplate', '#entriesTemplate' ],
-    loggedin: ['#logout','#showFeed', '#newPostFormTemplate', '#entriesTemplateLoggedIn', '#usersTemplate'],
-    loggedinfeed: ['#logout', '#showMyFeed', '#entriesTemplate', '#usersTemplate']
+    loggedin: ['#logout','#showFeed', '#newPostFormTemplate', '#myEntriesTemplate', '#usersTemplate'],
+    loggedinfeed: ['#logout', '#showMyFeed', '#entriesTemplateLoggedIn', '#usersTemplate']
   }
+
   checkIfLoggedIn()
   
   function renderView(view) {
@@ -32,6 +33,8 @@
       if (template === '#entriesTemplateLoggedIn') { showAllEntriesLoggedIn(); }
       if (template === '#usersTemplate') { showAllUsers(); }
       if (template === '#commentsTemplate') { showAllComments(); }
+      if (template === '#myEntriesTemplate') { showAllMyEntriesLoggedIn(); }
+
 
       // 7. Bind Events
       if (template === '#registerFormTemplate') { bindRegisterEvents(); bindLoginFormEvents();  }
@@ -60,7 +63,6 @@ function checkIfLoggedIn(){
 }
 
 
- 
 function getLoggedInUser() {
   fetch('/api/session_user')
     .then(response => {
@@ -201,8 +203,8 @@ function bindNewPostEvents() {
     })
   })
 }
-//Visa alla entries på startsidan
 
+//Visa alla entries på startsidan
 function showAllEntries() {
   const showEntries = document.querySelector('#entryList');
 
@@ -315,6 +317,125 @@ function showAllEntries() {
   }); 
 }
 
+//Visa alla MINA entries på startsidan
+
+function showAllMyEntriesLoggedIn() {
+  const showEntries = document.querySelector('#myEntryList');
+  
+  fetch('/api/myentries', {
+
+    method: 'GET'
+
+  }).then(response => {
+    if(!response.ok){
+      console.log(response);
+      return Error(response.statusText)
+    } else {
+      return response.json()
+    }
+  })
+  .then(entries => {
+
+    let markup = '';
+    let idCollapse = 0;
+
+    entries.forEach(entry => {
+      let id = entry.entryID;
+
+      idCollapse++;
+      markup += `
+      <div id="accordion${idCollapse}" class="mb-2 justify-content-center w-500">
+        <div class="card d-flex w-100">
+          <div class="card-header" id="heading${idCollapse}">
+            <h5 class="mb-0 d-flex justify-content-center">
+              <button class="btn btn-link text-warning" data-toggle="collapse" data-target="#collapse${idCollapse}" aria-expanded="true" aria-controls="collapse${idCollapse}">
+                ${entry.title}
+              </button>
+            </h5>
+          </div>
+      
+          <div id="collapse${idCollapse}" class="collapse show" aria-labelledby="heading${idCollapse}" data-parent="#accordion${idCollapse}">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col d-flex justify-content-center mb-4">
+                        <p>${entry.content}</p>
+                    </div>
+                </div>
+              <div class="row">
+                <div class="col d-flex justify-content-center">
+                  <form id="updateEntryForm${id}" class="hidden">
+                    <div class="form-group">
+                    <input type="text" class="form-control" placeholder="New content here..." name="content"> 
+                    </div>
+                    <button type="submit" class="btn btn-success btn-sm">Post edit</button>  
+                    <a href="javascript:hideUpdateForm(${id})" class="btn btn-secondary btn-sm">Cancel</a>     
+                  </form>
+                </div>
+              </div>
+              <div class="row">
+                  <div class="col d-flex justify-content-center">
+                      <p class="text-muted">${entry.createdAt}</p>
+                  </div>
+                  <div class="col d-flex justify-content-center">
+                      <p class="text-muted">${entry.userID}</p>   
+                  </div>
+                  <div class="col d-flex justify-content-center">
+                    <a href="javascript:showUpdateForm(${id})" class="btn btn-secondary btn-sm" id="updateBtn${id}">update entry</a>   
+                  </div>
+                  <div class="col d-flex justify-content-center">
+                    <button class="btn btn-danger btn-sm" id="deleteBtn${id}">Delete entry</button>   
+                  </div>                
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header" id="headingThree">
+            <h5 class="mb-0">
+              <button class="btn btn-link text-warning collapsed" data-toggle="collapse" data-target="#collapse${idCollapse}" aria-expanded="false" aria-controls="collapseThree">
+                Comments
+              </button>
+            </h5>
+          </div>
+          <div id="collapse${idCollapse}" class="collapse" aria-labelledby="headingThree" data-parent="#accordion${idCollapse}">
+            <div class="card-body">
+
+              <div class="row">
+                  <div class="col" id="postComment${entry.entryID}"></div>
+              </div>
+              <div class="row justify-content-center">
+                <div class="col">
+                  <ul id="commentList${entry.entryID}" class="list-group list-group-flush"></ul>
+                </div>
+              </div>
+            </div>
+              
+            </div>
+          </div>
+        </div>
+      </div>`;
+      })
+
+    showEntries.innerHTML = markup;
+
+    // Hämta entryID för varje inlägg
+    entries.forEach(entry => {
+      // radera entries
+      deleteEntry(entry.entryID);
+
+      //updatera entries
+      updateEntry(entry.entryID);
+
+      // Visa inläggets kommentarer
+      showComments(entry.entryID);
+
+    });
+  })
+  .catch(error => {
+    console.error(error)
+  }); 
+}
+
 //Visa alla entries inloggad
 function showAllEntriesLoggedIn() {
   const showEntries = document.querySelector('#entryList');
@@ -342,6 +463,7 @@ function showAllEntriesLoggedIn() {
 
       idCollapse++;
       markup += `
+
       <div id="accordion${idCollapse}" class="mb-2 justify-content-center w-500">
         <div class="card d-flex w-100">
           <div class="card-header" id="heading${idCollapse}">
