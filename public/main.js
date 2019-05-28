@@ -262,7 +262,7 @@ function showAllEntries() {
                       <p class="text-muted">${entry.createdAt}</p>
                   </div>
                   <div class="col d-flex justify-content-center">
-                      <p class="text-muted">${entry.userID}</p>   
+                      <p class="text-muted">Written by ${entry.userID}</p>   
                   </div>                
               </div>
             </div>
@@ -375,7 +375,7 @@ function showAllEntriesLoggedIn() {
                       <p class="text-muted">${entry.createdAt}</p>
                   </div>
                   <div class="col d-flex justify-content-center">
-                      <p class="text-muted">${entry.userID}</p>   
+                      <p class="text-muted">Written by ${entry.userID}</p>   
                   </div>
                   <div class="col d-flex justify-content-center">
                     <a href="javascript:showUpdateForm(${id})" class="btn btn-secondary btn-sm" id="updateBtn${id}">update entry</a>   
@@ -511,7 +511,6 @@ function hideUpdateForm(id){
 };
 
 //Visa alla användare på sidan
-
 function showAllUsers() {
   const showUsers = document.querySelector('#usersList');
 
@@ -532,7 +531,7 @@ function showAllUsers() {
   .then(users => {
     let markup = '';
     users.forEach(user => {
-      markup += `<li> ${user.username} </li>`;
+      markup += `<li>${user.userID} - ${user.username}</li>`;
     })
 
     showUsers.innerHTML = markup;
