@@ -280,9 +280,6 @@ function showAllEntries() {
           </div>
           <div id="collapseTwo${idCollapse}" class="collapse" aria-labelledby="headingThree" data-parent="#accordion${idCollapse}">
             <div class="card-body">
-              <div class="row">
-                  <div class="col" id="postComment${entry.entryID}"></div>
-              </div>
               <div class="row justify-content-center">
                 <div class="col">
                   <ul id="commentList${entry.entryID}" class="list-group list-group-flush"></ul>
@@ -427,7 +424,7 @@ function showAllMyEntriesLoggedIn() {
       updateEntry(entry.entryID);
 
       // Visa inläggets kommentarer
-      showComments(entry.entryID);
+      showCommentsLoggedIn(entry.entryID);
 
     });
   })
@@ -547,7 +544,7 @@ function showAllEntriesLoggedIn() {
       updateEntry(entry.entryID);
 
       // Visa inläggets kommentarer
-      showComments(entry.entryID);
+      // showComments2(entry.entryID);
 
     });
   })

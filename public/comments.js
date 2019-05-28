@@ -115,7 +115,50 @@ function showComments(id) {
     }
   })
   .then(comments => 
-    {    
+    {
+      let markup = '';
+      comments.forEach(comment => 
+        {
+          console.log('comment: ' + comment.createdBy);
+          markup += `
+          <li id="comment${comment.commentID}" class="list-group-item" >
+          <small>by user: ${comment.createdBy}</small><br>
+          ${comment.content}<br>
+          <small>${comment.createdAt}</small>
+          </li>
+          `;
+        });
+        commentList.innerHTML = markup;
+  })
+  .catch(error => 
+    {
+      console.error(error)
+    });
+}
+
+function showCommentsLoggedIn(id) {
+  
+  // console.log(id);
+  
+  const commentList = document.querySelector(`#commentList${id}`);
+  fetch(`/api/entry/${id}/comments`, 
+  {
+    method: 'GET'
+  })
+  .then(response => 
+    {
+    if(!response.ok)
+    {
+      return Error(response.statusText);
+    } 
+    else 
+    {
+      return response.json();
+    }
+  })
+  .then(comments => 
+    {
+      // console.log(ping);
       if(ping)
       {
         showPostComment(id);
@@ -123,18 +166,20 @@ function showComments(id) {
       }
 
       fetch('/api/session_user')
-          .then(response => {
-            if(response.ok) {
+          .then(response => 
+            {
+            if(response.ok) 
+            {
               return response.json();
             }
           })
-          .then(data => {
-
+          .then(data => 
+            {
             let markup = '';
             comments.forEach(comment => 
               {
-                // console.log('comment: ' + comment.createdBy);
-                // console.log('user:' + data['userID']);
+                console.log('comment: ' + comment.createdBy);
+                console.log('user:' + data['userID']);
 
                 markup += `
                 <li id="comment${comment.commentID}" class="list-group-item" >
