@@ -10,6 +10,13 @@ return function ($app) {
     
     return $response->withJson($entries->getAllEntries());
   });
+
+    //GET request för att hämta alla mina inlägg
+    $app->get('/api/myentries', function($request, $response, $args){
+      $entries = new Entry($this->db);
+      
+      return $response->withJson($entries->getAllMyEntries($userID));
+    });
   
   //GET request för att hämta de senaste X antal entries från en speficik användare,
   //första parametern är användare och andra antal entries
