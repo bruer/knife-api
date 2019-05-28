@@ -37,7 +37,7 @@
       if (template === '#newPostFormTemplate') { bindNewPostEvents(); }
       if (template === '#logout') { bindLogoutEvents(); }
       if (template === '#showFeed') { bindFeedEvents(); }
-      if (template === '#showMyFeed') { bindMyFeedEvents(); }
+      if (template === '#showMyFeedr') { bindMyFeedEvents(); }
      });
   }
 
