@@ -19,9 +19,9 @@ function bindPostCommentEvents(id) {
       else 
       {
         form.reset();
+        renderView(views.loggedin);
       }
     })
-    .then(renderView(views.loggedin))
     .catch(error => 
       {
         console.error(error);
@@ -42,6 +42,10 @@ function bindDeleteCommentEvents(id) {
       if(!response.ok) 
       {
         return Error(response.statusText);
+      }
+      else
+      {
+        renderView(views.loggedin);
       }
     })
     .catch(error => 
@@ -81,7 +85,8 @@ function bindUpdateCommentEvents(id) {
       } 
       else 
       {
-        form.reset()
+        form.reset();
+        renderView(views.loggedin);
       }
     })
     .catch(error => 
@@ -259,32 +264,6 @@ function showPostComment(id) {
       </form>
     </div>`;
 }
-
-// function buildComment(id, content, date) {
-//   return `
-//     <div id='comment${id}' class='comment-box'>
-//       <p>${content}</p>
-//       <p>${date}</p>
-//       <a href='javascript:showCommentBox(${id})'>
-//         Edit
-//       </a>
-//       <a
-//       href='http://localhost:8000/' 
-//       onclick='deleteComment(${id})'>
-//         Delete
-//       </a>
-//       <div id='editCommentBox${id}' class='hidden'>
-//         <form id='editCommentForm${id}'>
-//           <textarea name='content'></textarea>
-//           <button type='submit'>Post</button>
-//         </form>
-//         <a href='javascript:hideCommentBox(${id})'>
-//           Cancel
-//         </a>
-//       </div>
-//     </div>
-//   `;
-// }
 
 function show(id) {
   const commentTextarea = document.querySelector(`#commentBox${id}`);
