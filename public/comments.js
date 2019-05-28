@@ -133,8 +133,8 @@ function showComments(id) {
             let markup = '';
             comments.forEach(comment => 
               {
-                console.log('comment: ' + comment.createdBy);
-                console.log('user:' + data['userID']);
+                // console.log('comment: ' + comment.createdBy);
+                // console.log('user:' + data['userID']);
 
                 markup += `
                 <li id="comment${comment.commentID}" class="list-group-item" >
