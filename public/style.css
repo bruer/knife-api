@@ -59,7 +59,7 @@ main {
   padding: 0;
   list-style: none;
   text-align: left;
-
+}
 
 /* FEED BTN */
 
@@ -71,7 +71,6 @@ main {
   cursor:pointer;
   overflow: hidden;
   outline:none;
-  color:  
 }
 
 .feed-btn-box{
