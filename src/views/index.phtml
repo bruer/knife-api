@@ -7,6 +7,7 @@
   <title><?=$title?></title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <link rel="stylesheet" type="text/css" href="style.css">
+  <link href="https://fonts.googleapis.com/css?family=Pangolin&display=swap" rel="stylesheet">
   <link href="data:image/x-icon;base64,AAABAAEAEBAQAAAAAAAoAQAAFgAAACgAAAAQAAAAIAAAAAEABAAAAAAAgAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAa2djAAoKCgAPDw4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADAAAgAAAAAAMzMzEBAQEBAzMzMRERERETMzMxERERERMzMzERERERAwAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD//wAA//8AAP//AAD//wAA//8AAHv/AAABVQAAAAAAAAAAAAAAAQAAe/8AAP//AAD//wAA//8AAP//AAD//wAA" rel="icon" type="image/x-icon" />
 </head>
 <body>
@@ -17,6 +18,7 @@
   
   <div id="renderTarget" class="container"></div>
 
+  <!-- Login form -->
   <template id="loginFormTemplate">
     <div class="d-flex justify-content-center mb-3 h-100 col " id="loginDiv">
       <div class="card" id="card">
@@ -50,7 +52,7 @@
     </div>
   </template>
 
-    
+  <!-- Register form -->
   <template id="registerFormTemplate">
     <div class="d-flex justify-content-center mb-3 h-100 col" id="registerDiv">
       <div class="card" id="card">
@@ -99,11 +101,13 @@
       </form>
     </div>
   </template>
-    
+  
+  <!-- List of entries -->
   <template id="entriesTemplate"> 
     <div id="entryList" class="col"></div>
   </template>
 
+  <!-- List of users -->
   <template id="usersTemplate">
     <div class="user-list-box">
       <h2>Users</h2>
@@ -112,6 +116,7 @@
     </div>
   </template>
 
+  <!-- Logout button -->
   <template id="logout">
     <div class="col text-right">
       <button id="logoutBtn" class="btn btn-secondary">Logout</button>
@@ -142,6 +147,5 @@
   
   <script type="text/javascript" src="comments.js"></script>
   <script type="text/javascript" src="main.js"></script>
-  <!-- <script type="text/javascript" src="registerBtn.js"></script> -->
 </body>
 </html>

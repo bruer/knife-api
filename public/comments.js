@@ -113,7 +113,6 @@ function showComments(id) {
   })
   .then(comments => 
     {
-      let loggedin = true;
 
       
       if(ping)
@@ -124,9 +123,11 @@ function showComments(id) {
       let markup = '';
       comments.forEach(comment => 
         {
+          // console.log(comment.createdBy);
           markup += `
           <li id="comment${comment.commentID}" class="list-group-item" >
-          ${comment.content} <br>
+          <small>by user: ${comment.createdBy}</small><br>
+          ${comment.content}<br>
           <small>${comment.createdAt}</small>
           </li>
           `;

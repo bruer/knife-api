@@ -28,10 +28,15 @@ return function ($app) {
   $app->post('/api/newpost', function ($request, $response) {
     $entry = new Entry($this->db);
     $data = $request->getParsedBody();
-    var_dump($data);
-    $response->withJson($entry->newPost(
-      $data['title'], $data['content']
-    ));
+    // var_dump($data);
+    // $response->withJson($entry->newPost(
+    //   $data['title'], $data['content']
+    // ));
+
+    $entry->newPost($data['title'], $data['content'], $_SESSION['userID']);
+
+    echo $_SESSION['userID'];
+
     return $response->withJson($data);
   });
 

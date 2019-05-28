@@ -1,16 +1,13 @@
 body {
   background: #ecf0f1;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: 'Pangolin', cursive;
 }
-
 main {
   max-width: 40em;
 }
-
 #registerBtn {
   background-color: antiquewhite;
 }
-
 #entryList {
   margin-bottom: 100px;
 }
@@ -37,8 +34,8 @@ main {
   transform: translate(-50%, -50%)
 
 }
-/* KOMMENTARER */
 
+/* KOMMENTARER */
 .hidden {
   display: none;
 }
@@ -48,9 +45,7 @@ main {
   margin-bottom: 30px;
 }
 
-
 /* Userlist */
-
 .user-list-box{
   background-color: white;
   border: solid 1px rgb(46, 46, 46);
@@ -64,7 +59,7 @@ main {
   padding: 0;
   list-style: none;
   text-align: left;
-}
+
 
 /* FEED BTN */
 
