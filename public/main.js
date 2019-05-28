@@ -2,9 +2,10 @@
     login: ['#loginFormTemplate', '#entriesTemplate'],
     loginfailed: ['#loginFormTemplate', '#loginFailed', '#entriesTemplate'],
     registrer: ['#registerFormTemplate', '#entriesTemplate' ],
-    loggedin: ['#logout', '#newPostFormTemplate', '#entriesTemplate', '#usersTemplate']
-    
+    loggedin: ['#logout','#showFeed', '#newPostFormTemplate', '#entriesTemplateLoggedIn', '#usersTemplate'],
+    loggedinfeed: ['#logout', '#showMyFeed', '#entriesTemplate', '#usersTemplate']
   }
+  checkIfLoggedIn()
   
   function renderView(view) {
     // 1. Definera ett target
@@ -28,6 +29,7 @@
 
       // 6. Check for data loading dependencies
       if (template === '#entriesTemplate') { showAllEntries(); }
+      if (template === '#entriesTemplateLoggedIn') { showAllEntriesLoggedIn(); }
       if (template === '#usersTemplate') { showAllUsers(); }
       if (template === '#commentsTemplate') { showAllComments(); }
 
@@ -36,8 +38,9 @@
       if (template === '#loginFormTemplate') { bindLoginEvents(); bindRegisterFormEvents(); }
       if (template === '#newPostFormTemplate') { bindNewPostEvents(); }
       if (template === '#logout') { bindLogoutEvents(); }
-    
-    });
+      if (template === '#showFeed') { bindFeedEvents(); }
+      if (template === '#showMyFeed') { bindMyFeedEvents(); }
+     });
   }
 
 //ping för att kunna visa olika saker beroende på om man är inloggad eller ej.  
@@ -56,7 +59,7 @@ function checkIfLoggedIn(){
     })
 }
 
-checkIfLoggedIn()
+
  
 function getLoggedInUser() {
   fetch('/api/session_user')
@@ -93,6 +96,27 @@ function bindLoginFormEvents() {
     renderView(views.login)
 })
 }
+
+// Visa feed 
+function bindFeedEvents() {
+  const feedBtn = document.querySelector('.feed')
+
+  feedBtn.addEventListener('click', e =>{
+    e.preventDefault()
+    renderView(views.loggedinfeed)
+})
+}
+
+// Visa My Feed 
+function bindMyFeedEvents() {
+  const myFeedBtn = document.querySelector('.myfeed')
+
+  myFeedBtn.addEventListener('click', e =>{
+    e.preventDefault()
+    renderView(views.loggedin)
+})
+} 
+
 
 
 // REGGA ANVÄNDARE
@@ -177,8 +201,8 @@ function bindNewPostEvents() {
     })
   })
 }
-
 //Visa alla entries på startsidan
+
 function showAllEntries() {
   const showEntries = document.querySelector('#entryList');
 
@@ -204,9 +228,120 @@ function showAllEntries() {
       let id = entry.entryID;
 
       idCollapse++;
-      if (ping == true ) {
-         
-        markup += `
+      markup += `
+      <div id="accordion${idCollapse}" class="mb-2 justify-content-center w-500">
+        <div class="card d-flex w-100">
+          <div class="card-header" id="heading${idCollapse}">
+            <h5 class="mb-0 d-flex justify-content-center">
+              <button class="btn btn-link text-warning" data-toggle="collapse" data-target="#collapse${idCollapse}" aria-expanded="true" aria-controls="collapse${idCollapse}">
+                ${entry.title}
+              </button>
+            </h5>
+          </div>
+      
+          <div id="collapse${idCollapse}" class="collapse" aria-labelledby="heading${idCollapse}" data-parent="#accordion${idCollapse}">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col d-flex justify-content-center mb-4">
+                        <p>${entry.content}</p>
+                    </div>
+                </div>
+              <div class="row">
+                <div class="col d-flex justify-content-center">
+                  <form id="updateEntryForm${id}" class="hidden">
+                    <div class="form-group">
+                    <input type="text" class="form-control" placeholder="New content here..." name="content"> 
+                    </div>
+                    <button type="submit" class="btn btn-success btn-sm">Post edit</button>  
+                    <a href="javascript:hideUpdateForm(${id})" class="btn btn-secondary btn-sm">Cancel</a>     
+                  </form>
+                </div>
+              </div>
+              <div class="row">
+                  <div class="col d-flex justify-content-center">
+                      <p class="text-muted">${entry.createdAt}</p>
+                  </div>
+                  <div class="col d-flex justify-content-center">
+                      <p class="text-muted">${entry.userID}</p>   
+                  </div>                
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header" id="headingThree">
+            <h5 class="mb-0">
+              <button class="btn btn-link text-warning collapsed" data-toggle="collapse" data-target="#collapseTwo${idCollapse}" aria-expanded="false" aria-controls="collapseThree">
+                Comments
+              </button>
+            </h5>
+          </div>
+          <div id="collapseTwo${idCollapse}" class="collapse" aria-labelledby="headingThree" data-parent="#accordion${idCollapse}">
+            <div class="card-body">
+              <div class="row">
+                  <div class="col" id="postComment${entry.entryID}"></div>
+              </div>
+              <div class="row justify-content-center">
+                <div class="col">
+                  <ul id="commentList${entry.entryID}" class="list-group list-group-flush"></ul>
+                </div>
+              </div>
+            </div>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+      `;
+      })
+
+    showEntries.innerHTML = markup;
+
+    // Hämta entryID för varje inlägg
+    entries.forEach(entry => {
+      // radera entries
+      deleteEntry(entry.entryID);
+
+      //updatera entries
+      updateEntry(entry.entryID);
+
+      // Visa inläggets kommentarer
+      showComments(entry.entryID);
+
+    });
+  })
+  .catch(error => {
+    console.error(error)
+  }); 
+}
+
+//Visa alla entries inloggad
+function showAllEntriesLoggedIn() {
+  const showEntries = document.querySelector('#entryList');
+
+  fetch('/api/entries', {
+
+    method: 'GET'
+
+  }).then(response => {
+      
+    if(!response.ok){
+      console.log(response);
+      return Error(response.statusText)
+    } else {
+      return response.json()
+    }
+  })
+  .then(entries => {
+
+    let markup = '';
+    let idCollapse = 0;
+
+    entries.forEach(entry => {
+      let id = entry.entryID;
+
+      idCollapse++;
+      markup += `
       <div id="accordion${idCollapse}" class="mb-2 justify-content-center w-500">
         <div class="card d-flex w-100">
           <div class="card-header" id="heading${idCollapse}">
@@ -277,105 +412,7 @@ function showAllEntries() {
           </div>
         </div>
       </div>`;
-      } else {
-          markup += `
-      <div id="accordion${idCollapse}" class="mb-2 justify-content-center w-500">
-        <div class="card d-flex w-100">
-          <div class="card-header" id="heading${idCollapse}">
-            <h5 class="mb-0 d-flex justify-content-center">
-              <button class="btn btn-link text-warning" data-toggle="collapse" data-target="#collapse${idCollapse}" aria-expanded="true" aria-controls="collapse${idCollapse}">
-                ${entry.title}
-              </button>
-            </h5>
-          </div>
-      
-          <div id="collapse${idCollapse}" class="collapse" aria-labelledby="heading${idCollapse}" data-parent="#accordion${idCollapse}">
-            <div class="card-body">
-                <div class="row">
-                    <div class="col d-flex justify-content-center mb-4">
-                        <p>${entry.content}</p>
-                    </div>
-                </div>
-              <div class="row">
-                <div class="col d-flex justify-content-center">
-                  <form id="updateEntryForm${id}" class="hidden">
-                    <div class="form-group">
-                    <input type="text" class="form-control" placeholder="New content here..." name="content"> 
-                    </div>
-                    <button type="submit" class="btn btn-success btn-sm">Post edit</button>  
-                    <a href="javascript:hideUpdateForm(${id})" class="btn btn-secondary btn-sm">Cancel</a>     
-                  </form>
-                </div>
-              </div>
-              <div class="row">
-                  <div class="col d-flex justify-content-center">
-                      <p class="text-muted">${entry.createdAt}</p>
-                  </div>
-                  <div class="col d-flex justify-content-center">
-                      <p class="text-muted">${entry.userID}</p>   
-                  </div>                
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card-header" id="headingThree">
-            <h5 class="mb-0">
-              <button class="btn btn-link text-warning collapsed" data-toggle="collapse" data-target="#collapseTwo${idCollapse}" aria-expanded="false" aria-controls="collapseThree">
-                Comments
-              </button>
-            </h5>
-          </div>
-          <div id="collapseTwo${idCollapse}" class="collapse" aria-labelledby="headingThree" data-parent="#accordion${idCollapse}">
-            <div class="card-body">
-              <div class="row">
-                  <div class="col" id="postComment${entry.entryID}"></div>
-              </div>
-              <div class="row justify-content-center">
-                <div class="col">
-                  <ul id="commentList${entry.entryID}" class="list-group list-group-flush"></ul>
-                </div>
-              </div>
-            </div>
-              
-            </div>
-          </div>
-        </div>
-      </div>`;        
-      /*  markup += `
-       <div id="accordion${idCollapse}" class="mb-2 justify-content-center w-500">
-        <div class="card d-flex w-100">
-          <div class="card-header" id="heading${idCollapse}">
-            <h5 class="mb-0 d-flex justify-content-center">
-              <button class="btn btn-link" data-toggle="collapse" data-target="#collapse${idCollapse}" aria-expanded="true" aria-controls="collapse${idCollapse}">
-                ${entry.title}
-              </button>
-            </h5>
-          </div>
-      
-          <div id="collapse${idCollapse}" class="collapse hide" aria-labelledby="heading${idCollapse}" data-parent="#accordion${idCollapse}">
-            <div class="card-body">
-                <div class="row">
-                    <div class="col d-flex justify-content-center" >
-                        <p>${entry.content}</p>
-                    </div>
-                </div>
-              <div class="row">
-                  <div class="col d-flex justify-content-center">
-                      <p class="text-muted">${entry.createdAt}</p>
-                  </div>
-                  <div class="col d-flex justify-content-center">
-                      <p class="text-muted">${entry.userID}</p>   
-                  </div>
-                                  
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>`; */
-      }
-
-    })
+      })
 
     showEntries.innerHTML = markup;
 

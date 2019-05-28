@@ -17,9 +17,7 @@ class Entry extends Mapper {
 
   public function removeEntry($entryID){
     $statement = $this->db->prepare("DELETE FROM entries WHERE entryID = {$entryID}");
-    $statement->execute();
-
-    
+    $statement->execute();    
   }
 
   public function updateEntry($entryID, $content){
@@ -36,7 +34,6 @@ class Entry extends Mapper {
   }
 
   public function getEntriesFrom($user, $quantity){
-
     $statement = $this->db->prepare("SELECT * FROM entries WHERE userID = {$user} ORDER BY createdAt DESC LIMIT {$quantity}");
     $statement->execute();
 
