@@ -174,9 +174,6 @@ function showCommentsLoggedIn(id) {
             let markup = '';
             comments.forEach(comment => 
               {
-                console.log('comment: ' + comment.createdBy);
-                console.log('user:' + data['userID']);
-
                 markup += `
                 <li id="comment${comment.commentID}" class="list-group-item" >
                 <small>by user: ${comment.createdBy}</small><br>
