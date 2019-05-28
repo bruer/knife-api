@@ -124,7 +124,7 @@ function showComments(id) {
       let markup = '';
       comments.forEach(comment => 
         {
-          console.log(comment.createdBy);
+          // console.log(comment.createdBy);
           markup += `
           <li id="comment${comment.commentID}" class="list-group-item" >
           <small>by user: ${comment.createdBy}</small><br>
@@ -132,7 +132,7 @@ function showComments(id) {
           <small>${comment.createdAt}</small>
           </li>
           `;
-          if(ping && comment.createdBy == 5)
+          if(ping)
           {
             markup += commentFeatures(comment.commentID);
           }
@@ -159,11 +159,11 @@ function commentFeatures(id) {
   return `
     <div class="row d-flex justify-content-start">
       <div class="col justify-content-start">
-        <a href='javascript:show(${id})'>
+        <a href='javascript:show(${id})' class="text-warning">
           Edit
         </a>
         <a href='http://localhost:8000/'
-          id='deleteCommentBtn${id}'>
+          id='deleteCommentBtn${id}' class="text-warning">
           Delete
         </a>
       </div>
@@ -173,10 +173,10 @@ function commentFeatures(id) {
       <div class="form-group">
       <textarea name='content' class="form-control"></textarea>
       </div>
-       <button type='submit' class="btn btn-primary btn-sm">
+       <button type='submit' class="btn btn-success btn-sm">
           Post edit
        </button>
-       <a href='javascript:hide(${id})'>
+       <a href='javascript:hide(${id})' class=" btn btn-secondary btn-sm">
           Cancel
        </a>
      </form>
@@ -187,7 +187,7 @@ function commentFeatures(id) {
 function showPostComment(id) {
   const postComment = document.querySelector(`#postComment${id}`);
   postComment.innerHTML = `
-    <a href='javascript:show(${id})'>
+    <a href='javascript:show(${id})' class="text-warning">
        Write a comment
     </a>
     <div id='commentBox${id}' class='hidden'>
@@ -195,10 +195,10 @@ function showPostComment(id) {
         <div class="form-group">
           <textarea class="form-control" name="content"></textarea>
         </div>
-        <button class="btn btn-primary btn-sm" type="submit">
+        <button class="btn btn-success btn-sm" type="submit">
            Post comment
         </button>
-        <a href='javascript:hide(${id})'>
+        <a href='javascript:hide(${id})' class="text-secondary">
            Cancel
         </a>
       </form>

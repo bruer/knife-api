@@ -10,19 +10,6 @@ class Comment extends Mapper {
     
     return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
-    
-    // public function post($content) {
-    //     $statement = $this->db->prepare(
-    //         "INSERT INTO comments (entryID, content, createdBy, createdAt)
-    //         VALUES (:entryID, :content, :createdBy, NOW())"
-    //     );
-
-    //     $statement->execute([
-    //         ':entryID' => 1,
-    //         ':content' => $content,
-    //         ':createdBy' => 1
-    //     ]);
-    // }
 
     public function post($entryID, $content, $createdBy) {
         $statement = $this->db->prepare(
@@ -58,17 +45,6 @@ class Comment extends Mapper {
             ':commentID' => $commentID
         ]);
     }
-
-    // function getAllFromEntry($entryID) {
-    //     $statement = $this->db->prepare(
-    //         "SELECT * FROM comments 
-    //         INNER JOIN entries ON comments.entryID = entries.entryID 
-    //         WHERE entries.entryID = {$entryID}"
-    //     );
-    //     $statement->execute();
-        
-    //     return $statement->fetchAll(PDO::FETCH_ASSOC);
-    // }
 
     function getAllFromEntry($entryID) {
         $statement = $this->db->prepare(
