@@ -114,7 +114,6 @@ function showComments(id) {
   .then(comments => 
     {
 
-      // console.log(ping);
       
       if(ping)
       {

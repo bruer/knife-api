@@ -2,8 +2,8 @@
     login: ['#loginFormTemplate', '#entriesTemplate'],
     loginfailed: ['#loginFormTemplate', '#loginFailed', '#entriesTemplate'],
     registrer: ['#registerFormTemplate', '#entriesTemplate' ],
-    loggedin: ['#logout', '#newPostFormTemplate', '#entriesTemplate', '#usersTemplate']
-    
+    loggedin: ['#logout','#showFeed', '#newPostFormTemplate', '#entriesTemplate', '#usersTemplate'],
+    loggedinfeed: ['#logout', '#showMyFeed', '#entriesTemplate', '#usersTemplate']
   }
   
   function renderView(view) {
@@ -36,8 +36,9 @@
       if (template === '#loginFormTemplate') { bindLoginEvents(); bindRegisterFormEvents(); }
       if (template === '#newPostFormTemplate') { bindNewPostEvents(); }
       if (template === '#logout') { bindLogoutEvents(); }
-    
-    });
+      if (template === '#showFeed') { bindFeedEvents(); }
+      if (template === '#showMyFeed') { bindMyFeedEvents(); }
+     });
   }
 
 //ping för att kunna visa olika saker beroende på om man är inloggad eller ej.  
@@ -93,6 +94,27 @@ function bindLoginFormEvents() {
     renderView(views.login)
 })
 }
+
+// Visa feed 
+function bindFeedEvents() {
+  const feedBtn = document.querySelector('.feed')
+
+  feedBtn.addEventListener('click', e =>{
+    e.preventDefault()
+    renderView(views.loggedinfeed)
+})
+}
+
+// Visa My Feed 
+function bindMyFeedEvents() {
+  const myFeedBtn = document.querySelector('.myfeed')
+
+  myFeedBtn.addEventListener('click', e =>{
+    e.preventDefault()
+    renderView(views.loggedin)
+})
+} 
+
 
 
 // REGGA ANVÄNDARE
