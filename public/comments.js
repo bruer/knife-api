@@ -187,10 +187,10 @@ function showComments2(id) {
       comments.forEach(comment => 
         {
           markup += `
-            <div id='comment${comment.commentID}' class='comment-box'>
-              <p>${comment.content}</p>
-              <p>${comment.createdAt}</p>
-            </div>
+          <li id="comment${comment.commentID}" class="list-group-item" >
+          ${comment.content} <br>
+          <small>${comment.createdAt}</small>
+          </li>
           `;
           if(loggedin)
           {
@@ -217,16 +217,23 @@ function showComments2(id) {
 
 function commentFeatures(id) {
   return `
-    <a href='javascript:show(${id})'>
-      Edit
-    </a>
-    <button id='deleteCommentBtn${id}'>
-      Delete
-    </button>
-    <div id='commentBox${id}' class='hidden'>
+    <div class="row d-flex justify-content-start">
+      <div class="col justify-content-start">
+        <a href='javascript:show(${id})'>
+          Edit
+        </a>
+        <a href='http://localhost:8000/'
+          id='deleteCommentBtn${id}'>
+          Delete
+        </a>
+      </div>
+    </div>
+    <div id='commentBox${id}' class='hidden mb-2'>
      <form id='editCommentForm${id}'>
-       <textarea name='content'></textarea><br>
-       <button type='submit'>
+      <div class="form-group">
+      <textarea name='content' class="form-control"></textarea>
+      </div>
+       <button type='submit' class="btn btn-primary btn-sm">
           Post edit
        </button>
        <a href='javascript:hide(${id})'>
@@ -245,8 +252,10 @@ function showPostComment(id) {
     </a>
     <div id='commentBox${id}' class='hidden'>
       <form id="commentForm${id}">
-        <textarea name="content"></textarea><br>
-        <button type="submit">
+        <div class="form-group">
+          <textarea class="form-control" name="content"></textarea>
+        </div>
+        <button class="btn btn-primary btn-sm" type="submit">
            Post comment
         </button>
         <a href='javascript:hide(${id})'>

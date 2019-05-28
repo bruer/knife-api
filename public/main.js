@@ -2,7 +2,7 @@
     login: ['#loginFormTemplate', '#entriesTemplate'],
     loginfailed: ['#loginFormTemplate', '#loginFailed', '#entriesTemplate'],
     registrer: ['#registerFormTemplate', '#entriesTemplate' ],
-    loggedin: ['#entriesTemplate', '#usersTemplate', '#newPostFormTemplate', '#logout']
+    loggedin: ['#logout', '#newPostFormTemplate', '#entriesTemplate', '#usersTemplate']
     
   }
   
@@ -18,7 +18,7 @@
       
       // 4. Skapa en div 
       const div = document.createElement('div');
-      div.setAttribute('class', 'row justify-content-center');
+      div.setAttribute('class', 'row');
       
       // 4.2 Fyll diven med innehåll
       div.innerHTML = templateMarkup;
@@ -191,7 +191,8 @@ function showAllEntries() {
       idCollapse++;
       if (ping == true ) {
          
-        markup += `    <div id="accordion${idCollapse}" class="mb-2 justify-content-center w-500">
+        markup += `
+      <div id="accordion${idCollapse}" class="mb-2 justify-content-center w-500">
         <div class="card d-flex w-100">
           <div class="card-header" id="heading${idCollapse}">
             <h5 class="mb-0 d-flex justify-content-center">
@@ -201,10 +202,10 @@ function showAllEntries() {
             </h5>
           </div>
       
-          <div id="collapse${idCollapse}" class="collapse hide" aria-labelledby="heading${idCollapse}" data-parent="#accordion${idCollapse}">
+          <div id="collapse${idCollapse}" class="collapse show" aria-labelledby="heading${idCollapse}" data-parent="#accordion${idCollapse}">
             <div class="card-body">
                 <div class="row">
-                    <div class="col d-flex justify-content-center" >
+                    <div class="col d-flex justify-content-center mb-4">
                         <p>${entry.content}</p>
                     </div>
                 </div>
@@ -233,18 +234,101 @@ function showAllEntries() {
                     <button class="btn btn-danger btn-sm" id="deleteBtn${id}">Delete entry</button>   
                   </div>                
               </div>
-  
-              <div id="postComment${entry.entryID}"></div>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header" id="headingThree">
+            <h5 class="mb-0">
+              <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapse${idCollapse}" aria-expanded="false" aria-controls="collapseThree">
+                Comments
+              </button>
+            </h5>
+          </div>
+          <div id="collapse${idCollapse}" class="collapse" aria-labelledby="headingThree" data-parent="#accordion${idCollapse}">
+            <div class="card-body">
+
+              <div class="row">
+                  <div class="col" id="postComment${entry.entryID}"></div>
+              </div>
+              <div class="row justify-content-center">
+                <div class="col">
+                  <ul id="commentList${entry.entryID}" class="list-group list-group-flush"></ul>
+                </div>
+              </div>
+            </div>
               
-              <div id="commentList${entry.entryID}"></div>
-  
             </div>
           </div>
         </div>
       </div>`;
       } else {
-        
-        markup += `    <div id="accordion${idCollapse}" class="mb-2 justify-content-center w-500">
+          markup += `
+      <div id="accordion${idCollapse}" class="mb-2 justify-content-center w-500">
+        <div class="card d-flex w-100">
+          <div class="card-header" id="heading${idCollapse}">
+            <h5 class="mb-0 d-flex justify-content-center">
+              <button class="btn btn-link" data-toggle="collapse" data-target="#collapse${idCollapse}" aria-expanded="true" aria-controls="collapse${idCollapse}">
+                ${entry.title}
+              </button>
+            </h5>
+          </div>
+      
+          <div id="collapse${idCollapse}" class="collapse show" aria-labelledby="heading${idCollapse}" data-parent="#accordion${idCollapse}">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col d-flex justify-content-center mb-4">
+                        <p>${entry.content}</p>
+                    </div>
+                </div>
+              <div class="row">
+                <div class="col d-flex justify-content-center">
+                  <form id="updateEntryForm${id}" class="hidden">
+                    <div class="form-group">
+                    <input type="text" class="form-control" placeholder="New content here..." name="content"> 
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-sm">Post edit</button>  
+                    <a href="javascript:hideUpdateForm(${id})" class="btn btn-secondary btn-sm">Cancel</a>     
+                  </form>
+                </div>
+              </div>
+              <div class="row">
+                  <div class="col d-flex justify-content-center">
+                      <p class="text-muted">${entry.createdAt}</p>
+                  </div>
+                  <div class="col d-flex justify-content-center">
+                      <p class="text-muted">${entry.userID}</p>   
+                  </div>                
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header" id="headingThree">
+            <h5 class="mb-0">
+              <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapse${idCollapse}" aria-expanded="false" aria-controls="collapseThree">
+                Comments
+              </button>
+            </h5>
+          </div>
+          <div id="collapse${idCollapse}" class="collapse" aria-labelledby="headingThree" data-parent="#accordion${idCollapse}">
+            <div class="card-body">
+              <div class="row">
+                  <div class="col" id="postComment${entry.entryID}"></div>
+              </div>
+              <div class="row justify-content-center">
+                <div class="col">
+                  <ul id="commentList${entry.entryID}" class="list-group list-group-flush"></ul>
+                </div>
+              </div>
+            </div>
+              
+            </div>
+          </div>
+        </div>
+      </div>`;        
+      /*  markup += `
+       <div id="accordion${idCollapse}" class="mb-2 justify-content-center w-500">
         <div class="card d-flex w-100">
           <div class="card-header" id="heading${idCollapse}">
             <h5 class="mb-0 d-flex justify-content-center">
@@ -267,17 +351,13 @@ function showAllEntries() {
                   </div>
                   <div class="col d-flex justify-content-center">
                       <p class="text-muted">${entry.userID}</p>   
-                  </div>                
+                  </div>
+                                  
               </div>
-  
-              <div id="postComment${entry.entryID}"></div>
-              
-              <div id="commentList${entry.entryID}"></div>
-  
             </div>
           </div>
         </div>
-      </div>`;
+      </div>`; */
       }
 
     })
@@ -366,9 +446,9 @@ function updateEntry(id) {
       {
         form.reset();
       }
-    })    
-    .then(renderView(views.loggedin))
-    .catch(error => 
+    }).then(
+      renderView(views.loggedin)
+      ).catch(error => 
       {
         console.error(error)
       });
